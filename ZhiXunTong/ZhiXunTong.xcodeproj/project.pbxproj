@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0416A2741F668EA800086682 /* YiJianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416A2731F668EA800086682 /* YiJianViewController.m */; };
 		0416A2771F6785B900086682 /* BangzhuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416A2761F6785B900086682 /* BangzhuViewController.m */; };
-		0429134F1F6BCD07006EF291 /* sadsaklViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0429134E1F6BCD07006EF291 /* sadsaklViewController.m */; };
+		042913521F6BCF98006EF291 /* appppppppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042913511F6BCF98006EF291 /* appppppppViewController.m */; };
 		042FA7D61F4188C400F06E13 /* AddbgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042FA7D11F4188C400F06E13 /* AddbgTableViewCell.m */; };
 		042FA7D71F4188C400F06E13 /* AddbgTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042FA7D21F4188C400F06E13 /* AddbgTableViewCell.xib */; };
 		042FA7D81F4188C400F06E13 /* SheZTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042FA7D41F4188C400F06E13 /* SheZTableViewCell.m */; };
@@ -599,8 +599,8 @@
 		0416A2731F668EA800086682 /* YiJianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YiJianViewController.m; sourceTree = "<group>"; };
 		0416A2751F6785B900086682 /* BangzhuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BangzhuViewController.h; sourceTree = "<group>"; };
 		0416A2761F6785B900086682 /* BangzhuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BangzhuViewController.m; sourceTree = "<group>"; };
-		0429134D1F6BCD07006EF291 /* sadsaklViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sadsaklViewController.h; sourceTree = "<group>"; };
-		0429134E1F6BCD07006EF291 /* sadsaklViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sadsaklViewController.m; sourceTree = "<group>"; };
+		042913501F6BCF98006EF291 /* appppppppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appppppppViewController.h; sourceTree = "<group>"; };
+		042913511F6BCF98006EF291 /* appppppppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = appppppppViewController.m; sourceTree = "<group>"; };
 		042FA7D01F4188C400F06E13 /* AddbgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddbgTableViewCell.h; sourceTree = "<group>"; };
 		042FA7D11F4188C400F06E13 /* AddbgTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddbgTableViewCell.m; sourceTree = "<group>"; };
 		042FA7D21F4188C400F06E13 /* AddbgTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddbgTableViewCell.xib; sourceTree = "<group>"; };
@@ -2167,8 +2167,8 @@
 				452DF0C01F417D55002FBC6F /* 我的订单 */,
 				452DF0BD1F417D48002FBC6F /* DianShangViewController.h */,
 				452DF0BE1F417D48002FBC6F /* DianShangViewController.m */,
-				0429134D1F6BCD07006EF291 /* sadsaklViewController.h */,
-				0429134E1F6BCD07006EF291 /* sadsaklViewController.m */,
+				042913501F6BCF98006EF291 /* appppppppViewController.h */,
+				042913511F6BCF98006EF291 /* appppppppViewController.m */,
 			);
 			name = "电商模块";
 			sourceTree = "<group>";
@@ -4382,6 +4382,7 @@
 				452DF1761F418054002FBC6F /* DianShangTableViewCell.m in Sources */,
 				45896F391F46C331000D2608 /* GRXiaoXiViewController.m in Sources */,
 				4557BC251EFBECF900D77A6F /* ReMenTableViewCell.m in Sources */,
+				042913521F6BCF98006EF291 /* appppppppViewController.m in Sources */,
 				04956AC01F21A1A9005B4831 /* WgModel.m in Sources */,
 				45A6F2181EEE2B45001E5AAF /* AddressViewController.m in Sources */,
 				45FA857A1F0643490090CCB4 /* AgreementViewController.m in Sources */,
@@ -4606,7 +4607,6 @@
 				0470B6CC1F56A71400C6A31A /* RSADataVerifier.m in Sources */,
 				45896FE91F4AAF5E000D2608 /* addressModel.m in Sources */,
 				455FB4E71F4D4EA600457092 /* LZCartTableViewCell.m in Sources */,
-				0429134F1F6BCD07006EF291 /* sadsaklViewController.m in Sources */,
 				45FA868E1F0C74660090CCB4 /* DyTableViewCell.m in Sources */,
 				45309BAC1F03E0D500A89DA8 /* ToupTableViewCell.m in Sources */,
 				4589700C1F4AAFB7000D2608 /* JfXqViewController.m in Sources */,

@@ -1,18 +1,18 @@
 //
-//  sadsaklViewController.m
+//  appppppppViewController.m
 //  ZhiXunTong
 //
 //  Created by mac  on 2017/9/15.
 //  Copyright © 2017年 airZX. All rights reserved.
 //
 
-#import "sadsaklViewController.h"
+#import "appppppppViewController.h"
 
-@interface sadsaklViewController ()
+@interface appppppppViewController ()
 
 @end
 
-@implementation sadsaklViewController
+@implementation appppppppViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

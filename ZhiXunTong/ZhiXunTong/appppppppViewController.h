@@ -1,5 +1,5 @@
 //
-//  sadsaklViewController.h
+//  appppppppViewController.h
 //  ZhiXunTong
 //
 //  Created by mac  on 2017/9/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface sadsaklViewController : UIViewController
+@interface appppppppViewController : UIViewController
 
 @end
