@@ -1,10 +1,5 @@
 //
 //  SearchViewController.m
-//  LeBao
-//
-//  Created by 小黄人 on 2017/4/7.
-//  Copyright © 2017年 小黄人. All rights reserved.
-//
 
 #import "SearchViewController.h"
 #define Start_X          10.0f      // 第一个按钮的X坐标
@@ -15,155 +10,143 @@
 #define Button_Width    65// 宽
 #import "SearchTableViewCell.h"
 #import "ZQLNetWork.h"
-//#import "SSJGViewController.h"
+#import "SSJGViewController.h"
 //#import "activityModel.h"
 #import "MJExtension.h"
 #import "SousuoModel.h"
 #import "PchHeader.h"
 
-@interface SearchViewController ()<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>{
+@interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource>{
     NSMutableArray *array;
     UIButton *tempBtn1;
-    UITableView *tableview;
     SearchTableViewCell *cell;
     UIView *allview;
     UIButton *butx;
     NSString *strlex;
+    CGFloat h;
 }
 @property(nonatomic,strong)NSString *setrcode;
-
+@property (strong,nonatomic)UITableView *tableviews;
 @property (strong ,nonatomic) NSArray * butTitles;
 @property (strong ,nonatomic) NSArray * labtexts;
-@property(strong,nonatomic) UITextField *searchText;
+@property(strong,nonatomic) UISearchBar *searchText;
 @property (strong ,nonatomic) NSMutableArray * SousArray;
-@property (strong ,nonatomic) NSArray * jilusArray;
+@property (strong ,nonatomic) NSMutableArray * jilusArray;
 
 @end
 
 @implementation SearchViewController
 -(void)viewWillAppear:(BOOL)animated{
-    self.tabBarController.tabBar.hidden=YES;
-    
-    self.navigationController.navigationBarHidden=NO;//隐藏导航栏
-    
+        self.tabBarController.tabBar.hidden=YES;
+        [self.navigationController.navigationBar setBackgroundImage:
+        [UIImage imageNamed:@"bjdhl"] forBarMetrics:UIBarMetricsDefault];
+        self.navigationController.navigationBarHidden=NO;//隐藏导航栏
+        //    self.navigationController.navigationBar.barTintColor=RGB(248, 192, 72);
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        self.view.backgroundColor=[UIColor whiteColor];
     
 }
--(UITextField *)searchText{
-    if (!_searchText) {
-        _searchText=[[UITextField alloc]init];
-    }
-    return _searchText;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title=@"搜索";
-    [self sousuoloade];
     [self readNSUserDefaults];
-    
     [self search];
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     UIButton * backItem = [[UIButton alloc]initWithFrame:CGRectMake(0, 16, 10, 18)];
-    [backItem setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backItem setImage:[UIImage imageNamed:@"backtwo.png"] forState:UIControlStateNormal];
     [backItem addTarget:self action:@selector(btnCkmore) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:backItem];
     UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
     [self.navigationItem setLeftBarButtonItem:leftItemBar];
-
+   
+    
     
 }
 -(void)btnCkmore
 {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"lanse.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)search{
-UIView *viewss=[[UIView alloc]initWithFrame:CGRectMake(10,10, Screen_Width-20,  Screen_height/13)];
-    
-    viewss.layer.borderWidth=0.5;
-    
-    viewss.layer.masksToBounds = YES;
-    viewss.layer.borderColor=RGBColor(86, 86, 86).CGColor;
-    
-    [self.view addSubview:viewss];
-    self.searchText.frame=CGRectMake(50,0,viewss.frame.size.width-100,viewss.frame.size.height);
-    self.searchText.placeholder=@"  请输入关键字";
-//    self.searchText.layer.borderWidth=0.5;
  
- 
-    self.searchText.textColor=RGBColor(163, 163, 163);
-    self.searchText.font=[UIFont systemFontOfSize:11.0f];
-    self.searchText.delegate=self;
-    butx=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, viewss.frame.size.height)];
-//    butx.backgroundColor=[UIColor blackColor];
-    butx.layer.borderWidth=0.5;
-    [butx setTitle:@"宝贝" forState:UIControlStateNormal];
-    strlex=@"goods";
-    [butx setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    butx.font=[UIFont systemFontOfSize:14.0f];
-    butx.layer.masksToBounds = YES;
-    butx.layer.borderColor=RGBColor(86, 86, 86).CGColor;
-        [butx addTarget:self action:@selector(butxclick) forControlEvents:UIControlEventTouchUpInside];
-    [viewss addSubview:butx];
-    
-   [self.searchText addTarget:self action:@selector(FiledBeganEdting) forControlEvents:UIControlEventEditingDidBegin];
-     [viewss addSubview:_searchText];
-    
 
-    tempBtn1=[[UIButton alloc]initWithFrame:CGRectMake(viewss.frame.size.width-50,0, 50, viewss.frame.size.height)];
-    [tempBtn1 setImage:[UIImage imageNamed:@"serch2"] forState:UIControlStateNormal];
+    [self sousuoloade];
+    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, 40)];
+    //        _searchText = [[UISearchBar alloc] init];
+    _searchText = [[UISearchBar alloc] init];
+    _searchText.delegate = self;
+    _searchText.frame = CGRectMake(5, 5, 230,30);
+    self.searchText.layer.cornerRadius = 10;
+    _searchText.layer.borderWidth = 1;
+    _searchText.layer.borderColor = [RGBColor(238, 238, 238) CGColor];
+    [_searchText setBackgroundImage:[UIImage new]];
+    self.searchText.layer.masksToBounds = YES;
+     [titleView addSubview:self.searchText];
+        self.navigationItem.titleView = titleView;
+    tempBtn1=[[UIButton alloc]initWithFrame:CGRectMake(Screen_Width-85,0, 55,40)];
+
+    [tempBtn1 setTitle:@"搜 索" forState:UIControlStateNormal];
+    tempBtn1.titleLabel.font = [UIFont systemFontOfSize: 13.0];
+    tempBtn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [tempBtn1 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //button点击事件
-//    tempBtn1.backgroundColor=[UIColor blackColor];
     [tempBtn1 addTarget:self action:@selector(butToMinePage) forControlEvents:UIControlEventTouchUpInside];
-    [viewss addSubview:tempBtn1];
-    tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, Screen_height/3.8, Screen_Width, Screen_height/1.5) style:UITableViewStyleGrouped];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    [tableview registerNib:[UINib nibWithNibName:NSStringFromClass([SearchTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"cell"];
-    tableview.backgroundColor=[UIColor whiteColor];
-    UIView * viewwei = [[UIView alloc]initWithFrame:CGRectMake(0, Screen_height/1.41, Screen_Width, Screen_height)];
-    viewwei.backgroundColor = RGBColor(229, 229, 229);
-    [self.view addSubview:viewwei];
-    
- 
-    [self.view addSubview:tableview];
+    [titleView addSubview:tempBtn1];
+  
     
   
 }
 -(void)sousuoloade{
-    
-    [ZQLNetWork postWithUrlString:@"http://www.xhrgogo.com/api/index/hotSearch" parameters:nil success:^(id data) {
-        NSLog(@"%@",data);
-        _butTitles=[[data objectForKey:@"data"]objectForKey:@"key"];
-         NSLog(@"123%@",_butTitles);
-        for (int i = 0 ; i < _butTitles.count; i++) {
-            NSInteger index = i % _butTitles.count;
-            NSInteger page = i / _butTitles.count;
-            UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            mapBtn.tag = i;//这句话不写等于废了
-            mapBtn.frame = CGRectMake(index * (Screen_Width/4.8 + Width_Space) + Start_X+9, page  * (Button_Height + Height_Space)+(self.searchText.frame.size.height+10), Screen_Width/5.5, Button_Height);
-            [mapBtn setTitle:_butTitles[i] forState:UIControlStateNormal];
-            mapBtn.tintColor=RGBColor(247, 182, 45);
-            mapBtn.titleLabel.font = [UIFont systemFontOfSize: 11];
-            
-            [self.view addSubview:mapBtn];
-            //按钮点击方法
-            [mapBtn addTarget:self action:@selector(mapBwtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            
-            
-        }
-        for (int i = 0 ; i < _butTitles.count; i++) {
-            NSInteger index = i % _butTitles.count;
-            NSInteger page = i / _butTitles.count;
-            UILabel *labsx=[[UILabel alloc]init];
-              labsx.textColor=RGBColor(211, 213, 213);
-            labsx.tag=i;
-            labsx.backgroundColor=RGBColor(211, 213, 213);
-            labsx.frame=CGRectMake(index * (Screen_Width/4.8 + Width_Space) +Screen_Width/3.8, page  * (Button_Height + Height_Space)+(self.searchText.frame.size.height+20),1, 20);
-            [labsx setText:_labtexts[i]];
-          
-            [self.view addSubview:labsx];
-            
-        }
+    NSString *strurl=[NSString stringWithFormat:@"%@hotSearch.htm",URLds];
  
+    [ZQLNetWork getWithUrlString:strurl success:^(id data) {
+            NSLog(@"%@",data);
+            _butTitles=[data objectForKey:@"data"];
+            UILabel *labsx=[[UILabel alloc]initWithFrame:CGRectMake(10, 5, Screen_Width-5, 30)];
+            labsx.text=@"最近热搜";
+            labsx.font=[UIFont systemFontOfSize:14.0f];
+            labsx.textColor=[UIColor orangeColor];
+            [self.view addSubview:labsx];
+            CGFloat w = 0;//保存前一个button的宽以及前一个button距离屏幕边缘的距离
+            h= 40;//用来控制button距离父视图的高
+            for (int i = 0; i < _butTitles.count; i++) {
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+            button.tag =i;
+            button.backgroundColor = RGBColor(220, 220, 220);
+            [button addTarget:self action:@selector(mapBwtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            //根据计算文字的大小
+            button.layer.cornerRadius=5;
+            button.layer.masksToBounds = YES;
+            NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12]};
+            CGFloat length = [_butTitles[i] boundingRectWithSize:CGSizeMake(320, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
+            //为button赋值
+            [button setTitle:_butTitles[i] forState:UIControlStateNormal];
+            //设置button的frame
+            button.frame = CGRectMake(10 + w, h, length + 15 , 25);
+            //当button的位置超出屏幕边缘时换行 320 只是button所在父视图的宽度
+            if(10 + w + length + 15 > 320){
+            w = 0; //换行时将w置为0
+            h = h + button.frame.size.height + 10;//距离父视图也变化
+            button.frame = CGRectMake(10 + w, h, length + 15, 25);//重设button的frame
+            }
+            w = button.frame.size.width + button.frame.origin.x;
+            [self.view addSubview:button];
+            }
+            NSLog(@"%f",h);
+
+            _tableviews = [[UITableView alloc] initWithFrame:CGRectMake(0, h+40, Screen_Width, Screen_height-h-100) style:UITableViewStyleGrouped];
+            _tableviews.delegate = self;
+            _tableviews.dataSource = self;
+            [_tableviews registerNib:[UINib nibWithNibName:NSStringFromClass([SearchTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"cell"];
+            _tableviews.backgroundColor=[UIColor whiteColor];
+            UIView * viewwei = [[UIView alloc]initWithFrame:CGRectMake(0, Screen_height/1.41, Screen_Width, Screen_height)];
+            viewwei.backgroundColor = RGBColor(229, 229, 229);
+            [self.view addSubview:viewwei];
+
+
+            [self.view addSubview:_tableviews];
+
         
     } failure:^(NSError *error) {
     }];
@@ -174,17 +157,28 @@ UIView *viewss=[[UIView alloc]initWithFrame:CGRectMake(10,10, Screen_Width-20,  
       
         NSString *strsearch=[[NSString stringWithFormat:@"%@",self.searchText.text]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        NSString *strurl=[NSString stringWithFormat:@"%@search.htm?type=%@&keyword=%@",URLds,strlex,strsearch];
+        NSString *strurl=[NSString stringWithFormat:@"%@search.htm?type=goods&keyword=%@currentPage=1",URLds,strsearch];
         [ZQLNetWork getWithUrlString:strurl success:^(id data) {
-            NSLog(@"%@",data);
-             [self SearchText:self.searchText.text];
+            NSLog(@"=====%@",data);
+            NSMutableArray *daarray=[data objectForKey:@"data"];
+            NSString *statusCode=[NSString stringWithFormat:@"%@",[data objectForKey:@"statusCode"]];
+            NSString *msg=[NSString stringWithFormat:@"%@",[data objectForKey:@"msg"]];
+            if ([statusCode containsString:@"200"]) {
+            SSJGViewController *SSJGVi=[[SSJGViewController alloc]init];
+                SSJGVi.strci=strsearch;
+                SSJGVi.strdhl=_searchText.text;
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"lanse.png"] forBarMetrics:UIBarMetricsDefault];
+            [self.navigationController pushViewController:SSJGVi animated:NO];
+            }else{
+            [SVProgressHUD showErrorWithStatus:msg];
+
+            }
+            [self SearchText:self.searchText.text];
             
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+            [SVProgressHUD showErrorWithStatus:@"失败!!"];
         }];
-
-    }else{
 
     }}
 -(void)SearchText:(NSString *)seaTxt
@@ -193,44 +187,25 @@ UIView *viewss=[[UIView alloc]initWithFrame:CGRectMake(10,10, Screen_Width-20,  
     if (self.jilusArray) {
         searTXT = [self.jilusArray mutableCopy];
     }
-    [searTXT addObject:seaTxt];
-    
+  BOOL isbool = [searTXT containsObject:seaTxt];
+    if (isbool==0) {
+        [searTXT addObject:seaTxt];
+    }
     //将上述数据全部存储到NSUserDefaults中
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:searTXT forKey:@"searchHistory"];
-    [tableview reloadData];
+    [self readNSUserDefaults];
 }
 
 -(void)readNSUserDefaults
 {
     NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
     //读取数组NSArray类型的数据
-    self.jilusArray =[userDefaultes arrayForKey:@"searchHistory"] ;
-         NSLog(@"myArray======%@",self.jilusArray);
-    [tableview reloadData];
-}
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    self.jilusArray =[[userDefaultes arrayForKey:@"searchHistory"]  mutableCopy];
+    [_tableviews reloadData];
 }
 
-//删除历史记录
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        NSUInteger row = [indexPath row]; //获取当前行
-//        [self.jilusArray removeObjectAtIndex:row]; //在数据中删除当前对象
-        
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-    }
-}
 
-//修改编辑按钮文字
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"删除";
-}
 -(void)butqcClick{
     NSString *message = NSLocalizedString(@"确定清空历史搜索吗？", nil);
     NSString *cancelButtonTitle = NSLocalizedString(@"取消", nil);
@@ -251,7 +226,7 @@ UIView *viewss=[[UIView alloc]initWithFrame:CGRectMake(10,10, Screen_Width-20,  
         [searTXT removeAllObjects];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:searTXT forKey:@"searchHistory"];
-        
+      [self readNSUserDefaults];
     }];
     
     // Add the actions.
@@ -266,27 +241,10 @@ UIView *viewss=[[UIView alloc]initWithFrame:CGRectMake(10,10, Screen_Width-20,  
 //点击按钮方法,这里容易犯错
 -(void)mapBwtnClick:(UIButton *)sender{
     NSLog(@"%ld",sender.tag);
-    if (sender.tag==0) {
-        self.searchText.text=_butTitles[0];
-        [self butToMinePage];
-    }else if (sender.tag==1){
+    _searchText.text=_butTitles[sender.tag];
     
-     self.searchText.text=_butTitles[1];
-        [self butToMinePage];
-    }
-    else if (sender.tag==2){
-        
-        self.searchText.text=_butTitles[2];
-        [self butToMinePage];
-    }
-    else if (sender.tag==3){
-        
-        self.searchText.text=_butTitles[3];
-        [self butToMinePage];
-    }else{
-        NSLog(@"不可点击");
     
-    }
+    [self butToMinePage];
 }
 -(void)textFiledBeganEdting{
     self.view.hidden=NO;
@@ -308,30 +266,26 @@ UIView *viewss=[[UIView alloc]initWithFrame:CGRectMake(10,10, Screen_Width-20,  
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIButton *butqc=[[UIButton alloc]
-initWithFrame:CGRectMake(5, 0, Screen_Width, Screen_height/12)];
+    initWithFrame:CGRectMake(5, 0, Screen_Width, Screen_height/12)];
     [butqc setTitle:@"清除历史记录" forState:UIControlStateNormal];
     [butqc setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     butqc.font=[UIFont systemFontOfSize:11];
     butqc.backgroundColor=[UIColor whiteColor];
-      [butqc addTarget:self action:@selector(butqcClick) forControlEvents:UIControlEventTouchUpInside];
-    [tableview addSubview:butqc];
+    [butqc addTarget:self action:@selector(butqcClick) forControlEvents:UIControlEventTouchUpInside];
+    [_tableviews addSubview:butqc];
     return butqc;
-    
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
         return Screen_height/12;
- 
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+    NSLog(@"%ld",self.jilusArray.count);
     return self.jilusArray.count;
     
 }
@@ -350,10 +304,50 @@ initWithFrame:CGRectMake(5, 0, Screen_Width, Screen_height/12)];
     
     
 }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+
+    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(15, 0, Screen_Width-50, 30)];
+    lab.text=@"  搜素历史";
+    lab.textColor=[UIColor orangeColor];
+    lab.font=[UIFont systemFontOfSize:14.0f];
+
+    return lab;
+
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+  
+        return  30;
+    }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.lab.text=self.jilusArray[indexPath.row];
     _searchText.text=cell.lab.text;
     [self butToMinePage];
+}
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return @"删除";
+    
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"===%@",indexPath);
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+            //    删除
+        [[self jilusArray] removeObjectAtIndex:indexPath.row]; //[self unArchiverCollectArray]反归档出来的包含收藏数据的数组
+        
+        //从界面上删除
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.jilusArray forKey:@"searchHistory"];
+        [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
+    }
+    
+}
+- (void)reloadTable {
+    [_tableviews reloadData];
 }
 
 -(void)FiledBeganEdting{
@@ -405,20 +399,7 @@ initWithFrame:CGRectMake(5, 0, Screen_Width, Screen_height/12)];
     }
     [window addSubview:allview];
 }
-- (void)butxclickcon:(UIButton *)btn{
-   [allview removeFromSuperview];
-    NSLog(@"点击了%ld",btn.tag);
-    if (btn.tag==1) {
-         strlex=@"goods";
-        [butx setTitle:@"宝贝" forState:UIControlStateNormal];
-    }else{
-         strlex=@"store";
-    [butx setTitle:@"商铺" forState:UIControlStateNormal];
-    
-    }
-    
-    
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

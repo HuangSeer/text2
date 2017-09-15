@@ -13,4 +13,5 @@
 @property(nonatomic,copy)NSString *dystr;
 @property(strong,nonatomic) LMJDropdownMenu * dropdownMenu;
 @property(strong,nonatomic) LMJDropdownMenu * dropdownMenu1;
+@property(strong,nonatomic) LMJDropdownMenu * dropdownMenu2;
 @end

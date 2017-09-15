@@ -40,10 +40,8 @@
     [ZQLNetWork getWithUrlString:[NSString stringWithFormat:@"http://www.eollse.cn:8080/grid/app/work/addStaffClockInInfo.do?start_time=&start_site=&start_memo=&Cookie=%@",strcookie] success:^(id data) {
         NSLog(@"---------------%@",data);
         strcode =[NSString stringWithFormat:@"%@",[data objectForKey:@"statusCode"] ];
-//        [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-//        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
     }];
     [self initMapView];
     self.navigationItem.title=@"考勤打卡";
@@ -124,7 +122,7 @@
     [butdk setBackgroundImage:[UIImage imageNamed:@"按钮.png"] forState:UIControlStateNormal];
     [butdk setTitle:@"打卡" forState:UIControlStateNormal];
     [butdk setFont:[UIFont systemFontOfSize:19.0f]];
-    
+  [butdk.imageView setContentMode:UIViewContentModeScaleAspectFill];
     [butdk addTarget:self action:@selector(butdkClick) forControlEvents:UIControlEventTouchUpInside];
     [butdk setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:butdk];
@@ -179,11 +177,12 @@
     
     [self.mapView setCenterCoordinate:location.coordinate];
     [self.mapView setZoomLevel:18 animated:NO];
+    NSLog(@"=================================%@",reGeocode);
     if (reGeocode)
     {
         [arrmudw removeAllObjects];
         
-        strdw=[NSString stringWithFormat:@"%@",reGeocode.POIName];
+        strdw=[NSString stringWithFormat:@"%@",reGeocode.formattedAddress];
         arraydw= [strdw componentsSeparatedByString:@"("];
         arrmudw = [[NSMutableArray alloc] init];
         [arrmudw addObjectsFromArray:arraydw];
@@ -217,14 +216,11 @@
 }
 
 -(void)butdkClick{
-//    http://192.168.1.223:8080/grid/app/user/login.do?userName=zs&password=123&code=
-    
     if ([strcode containsString:@"202"]) {
         if (strdww.length!=0&&strdate.length!=0) {
       NSString *usdf = [strdww stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *datastr = [strdate stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *strurl=[NSString stringWithFormat:@"http://www.eollse.cn:8080/grid/app/work/addStaffClockInInfo.do?start_time=%@&start_site=%@&start_memo=ss&Cookie=%@",datastr,usdf,strcookie];
-    NSLog(@"strurl2==2=2=2=2====%@",strurl);
      [ZQLNetWork getWithUrlString:strurl success:^(id data) {
     [HHAlertView showAlertWithStyle:HHAlertStyleOk inView:self.view Title:@"" detail:@"考勤成功" cancelButton:nil Okbutton:@"确定" block:^(HHAlertButton buttonindex) {
                     if (buttonindex == HHAlertButtonOk) {
@@ -236,10 +232,9 @@
                         }
                     }];
 
-//        [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
         }else{
         

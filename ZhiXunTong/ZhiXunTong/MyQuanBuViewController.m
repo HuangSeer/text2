@@ -107,14 +107,13 @@
         }
     } failure:^(NSError *error) {
 //        NSLog(@"---------------%@",error);
-      [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+      [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
    
 }
 -(void)MoNiLogin{
     
     NSString *strurlphone=[NSString stringWithFormat:@"%@/shopping/api/thirdPartyLogin.htm?mobileNum=%@",DsURL,phone];
-    NSLog(@"%@",strurlphone);
     [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
         NSLog(@"MoNiLogin===%@",data);
         NSString *str=[NSString stringWithFormat:@"%@",[data objectForKey:@"statusCode"]];
@@ -124,7 +123,7 @@
         }
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 
 }
@@ -159,7 +158,7 @@
         
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
     
 }
@@ -331,9 +330,7 @@
 - (void)alertView:(FDAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex==0) {
             NSString *strurl=[NSString stringWithFormat:@"%@/shopping/api/order_cofirm_save.htm?id=%@",DsURL,ZFordid];
-           // NSString *hString = [strurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [ZQLNetWork getWithUrlString:strurl success:^(id data) {
-             //   NSLog(@"%@",);
                 NSString *str=[data objectForKey:@"msg"];
                 NSString *msg=[data objectForKey:@"statusCode"];
                 int lob=[msg intValue];
@@ -344,7 +341,7 @@
         
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
     }
 }

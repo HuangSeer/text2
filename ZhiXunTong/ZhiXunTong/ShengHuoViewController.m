@@ -12,6 +12,7 @@
 #import "CBHeaderChooseViewScrollView.h"
 #import "TouTiaoModel.h"
 #import "ShengHuoTableViewCell.h"
+#import "ShenHuoXqViewController.h"
 @interface ShengHuoViewController ()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *_tableView;
     NSMutableArray *_saveArray;
@@ -63,6 +64,8 @@
     UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
     [self.navigationItem setLeftBarButtonItem:leftItemBar];
     
+    
+    
     UIButton * backFen = [[UIButton alloc]initWithFrame:CGRectMake(0, 16, 44, 18)];
     [backFen setTitle:@"发帖" forState:UIControlStateNormal];
     [backFen addTarget:self action:@selector(fatieClick) forControlEvents:UIControlEventTouchUpInside];
@@ -81,10 +84,9 @@
         if (x==0) {
 //            [titleArray removeAllObjects];
 //            self.currentPage=1;
-//            [self SheQuShengHuo];
-            
+//            [self SheQuShengHuo];--
         }else{
-            [self SheQuShengHuo:[NSString stringWithFormat:@"%ld",x-1]];
+            [self SheQuShengHuo:[NSString stringWithFormat:@"%d",x-1]];
         }
     };
 }
@@ -146,7 +148,7 @@
         cell=[[[NSBundle mainBundle] loadNibNamed:@"ShengHuoTableViewCell" owner:self options:nil]objectAtIndex:0];
     }
     TouTiaoModel *mode=[_saveArray objectAtIndex:indexPath.item];
-    
+//    NSLog(@"%@",[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URL,mode.url]]);
     [cell.imgVie sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URL,mode.url]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
     cell.lab_tit.text=[NSString stringWithFormat:@"%@",[sqshArray2 objectAtIndex:indexPath.row]];
     cell.lab_time.text=[NSString stringWithFormat:@"%@  %@",mode.type,mode.time];
@@ -156,6 +158,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"选了了第%ld行",indexPath.row);
+    TouTiaoModel *model=[_saveArray objectAtIndex:indexPath.row];
+    
+    ShenHuoXqViewController *shenhuo=[[ShenHuoXqViewController alloc] init];
+    shenhuo.mid=model.id;
+    shenhuo.mTitle=@"社区生活";
+    [self.navigationController pushViewController:shenhuo animated:NO];
+    
 }
 
 - (void)didReceiveMemoryWarning {

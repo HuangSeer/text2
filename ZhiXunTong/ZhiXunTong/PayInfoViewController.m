@@ -200,7 +200,7 @@
                 
             } failure:^(NSError *error) {
                 NSLog(@"回掉%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
             
             
@@ -213,7 +213,6 @@
                     }
                 }
             }
-            NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
         
     } failure:^(NSError *error) {
@@ -259,14 +258,14 @@
                 NSLog(@"---------------%@",error);
                 Btn_QD.userInteractionEnabled=YES;
                 Btn_QD.backgroundColor = [UIColor greenColor];
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
         }
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
         Btn_QD.userInteractionEnabled=YES;
         Btn_QD.backgroundColor = [UIColor greenColor];
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 -(void)wx_btn{
@@ -304,14 +303,8 @@
 }
 //微信失败回调方法
 -(void)tongzhi2{
-    //    [SVProgressHUD showWithStatus:@"加载中"];
     Btn_QD.userInteractionEnabled=YES;
     Btn_QD.backgroundColor = [UIColor greenColor];
-    
-    //    ChengGongViewController *chenggong=[[ChengGongViewController alloc] init];
-    //    chenggong.CGid=_TOId;
-    //
-    //    [self.navigationController pushViewController:chenggong animated:NO];
     NSString *strurl=[NSString stringWithFormat:@"%@/shopping/api/wxPayOrderQuery.htm?id=%@",DsURL,_TOId];
     
     NSLog(@"strurl==%@",strurl);
@@ -322,14 +315,9 @@
         [SVProgressHUD showErrorWithStatus:aacc];
     } failure:^(NSError *error) {
         NSLog(@"回掉%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
     
-}
-- (void)tongzhi3:(NSString *)sender{
-    // ooid=sender;
-    NSLog(@"－－－－－接收到通知-----重新支付-");
-    //NSLog(@"sender%@==%@",sender,ooid);
 }
 
 @end

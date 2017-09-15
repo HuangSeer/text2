@@ -86,9 +86,6 @@
       NSLog(@"---------------%@",strurlima);
     [ZQLNetWork getWithUrlString:strurlima success:^(id data) {
         NSArray *tempArray=[PinPModel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"data"]];
-//        if (tempArray.count==0) {
-//            [SVProgressHUD showErrorWithStatus:@"暂无更多数据!"];
-//        }
         if (self.currentPage==1) {
         [modelArray removeAllObjects];
         }
@@ -96,7 +93,7 @@
         [homec reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 
 }

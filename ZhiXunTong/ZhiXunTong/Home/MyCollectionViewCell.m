@@ -15,12 +15,10 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        float with = (Screen_Width-100) / 4;
-        _topImage  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, with, with)];
-        //_topImage.backgroundColor = [UIColor redColor];
+        float with = (Screen_Width-150) / 4;
+        _topImage  = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, with, with)];
         [self.contentView addSubview:_topImage];
-        
-        _botlabel = [[UILabel alloc] initWithFrame:CGRectMake(-10, with, with+20, 20)];
+        _botlabel = [[UILabel alloc] initWithFrame:CGRectMake(-5 , with, with+20, 20)];
         _botlabel.textAlignment = NSTextAlignmentCenter;
         _botlabel.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:_botlabel];

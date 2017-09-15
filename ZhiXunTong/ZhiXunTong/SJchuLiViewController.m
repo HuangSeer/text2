@@ -102,7 +102,7 @@
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 
 
@@ -348,7 +348,6 @@
         }
         
         [ModelArray addObjectsFromArray:tempArray];
-        NSLog(@"%@",ModelArray);
         [str addObjectsFromArray:tempArray1];
         [str2 addObjectsFromArray:tempArray2];
         [str3 addObjectsFromArray:tempArray3];
@@ -357,7 +356,7 @@
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
   }
 #pragma mark 开始进入刷新状态

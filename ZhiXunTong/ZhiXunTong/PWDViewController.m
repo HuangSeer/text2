@@ -94,18 +94,18 @@
         lable.textAlignment=NSTextAlignmentRight;
         [cell.contentView addSubview:lable];
         oneText =[[UITextField alloc] initWithFrame:CGRectMake(110, 10, Screen_Width-130, 30)];
-        oneText.borderStyle=UITextBorderStyleBezel;
+        oneText.borderStyle=UITextBorderStyleRoundedRect;
         [cell.contentView addSubview:oneText];
     }
     else if (indexPath.row==1)
     {
        // cell.textLabel.text=@"新密码:";
         UILabel *lable=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, 100, 30)];
-        lable.text=@"新    密    码:";
+        lable.text=@"新    密   码:";
         lable.textAlignment=NSTextAlignmentRight;
         [cell.contentView addSubview:lable];
         twoText =[[UITextField alloc] initWithFrame:CGRectMake(110, 10, Screen_Width-130, 30)];
-        twoText.borderStyle=UITextBorderStyleBezel;
+        twoText.borderStyle=UITextBorderStyleRoundedRect;
         
         [cell.contentView addSubview:twoText];
         UIView *chu=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0.5)];
@@ -118,7 +118,7 @@
         lable.textAlignment=NSTextAlignmentRight;
         [cell.contentView addSubview:lable];
         threeText =[[UITextField alloc] initWithFrame:CGRectMake(110, 10, Screen_Width-130, 30)];
-        threeText.borderStyle=UITextBorderStyleBezel;
+        threeText.borderStyle=UITextBorderStyleRoundedRect;
         
         [cell.contentView addSubview:threeText];
         UIView *chu=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0.5)];

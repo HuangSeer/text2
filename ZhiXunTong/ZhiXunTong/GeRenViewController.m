@@ -18,6 +18,7 @@
 #import "GRXiaoXiViewController.h"//消息提醒
 #import "GRRuanJianViewController.h"//软件设置
 #import "LZCartViewController.h"//购物车
+#import "JPUSHService.h"
 @interface GeRenViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_tableView;
@@ -74,6 +75,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTabelView];
+    self.tabBarItem.badgeValue = nil;
 }
 - (void)initTabelView{
     //    classImageArray=@[@"geren01.png",@"geren02.png",@"geren03.png",@"geren04.png",@"geren05.png"];@"门禁绑定",
@@ -195,6 +197,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     UILabel *nameLabel=[[UILabel alloc]initWithFrame:CGRectMake(55, 0, 80, 44)];
+  nameLabel.textColor=RGBColor(30, 30, 30);
     //nameLabel.text=[NSString stringWithFormat:@"%@",[classArray objectAtIndex:indexPath.section]];
     //[cell.contentView addSubview:nameLabel];
     UIView *Xian=[[UIView alloc] initWithFrame:CGRectMake(10,cell.frame.size.height, Screen_Width-20, 0.5)];

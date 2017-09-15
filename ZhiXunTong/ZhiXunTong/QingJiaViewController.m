@@ -187,7 +187,7 @@
             
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+            [SVProgressHUD showErrorWithStatus:@"失败!!"];
         }];
         
     }else if(sender.tag==2){
@@ -243,14 +243,11 @@
             strauditor=[[NSString stringWithFormat:@"%@",selectValue]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
               [butxiala2 setTitle:[NSString stringWithFormat:@"     %@",selectValue] forState:UIControlStateNormal];
             [butxiala2 setTitleColor:RGBColor(134, 163, 255) forState:UIControlStateNormal];
-//            [sender setTitle:[NSString stringWithFormat:@"%@",selectValue] forState:UIControlStateNormal];
-            
-            
         } showCloseButton:NO];
         
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 
 
@@ -258,9 +255,8 @@
 
 -(void)buttijiaoClick{
     NSString *strtextview=[[NSString stringWithFormat:@"%@",_textView.text]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *strurl=[NSString stringWithFormat:@"http://www.eollse.cn:8080/grid/app/leaves/addOneLeavesInfo.do?leaves_type_id=%d&leaves_auditor=%@&leaves_begin_time=%@&leaves_end_time=%@&leaves_reason=%@Cookie=%@",strtypeid,strauditor,strbegin,strend,strtextview,strcookie];
+    NSString *strurl=[NSString stringWithFormat:@"http://www.eollse.cn:8080/grid/app/leaves/addOneLeavesInfo.do?leaves_type_id=%d&leaves_auditor=%@&leaves_begin_time=%@&leaves_end_time=%@&leaves_reason=%@&Cookie=%@",strtypeid,strauditor,strbegin,strend,strtextview,strcookie];
 //计算开始时间到结束时间的天数
-    NSLog(@"%@",strurl);
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
         NSLog(@"data========%@",data);
         NSString *strtx=[NSString stringWithFormat:@"%@",[data objectForKey:@"message"]];
@@ -268,11 +264,8 @@
 
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
-
-
-
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     NSLog(@"开始编辑。");
@@ -288,20 +281,5 @@
         _placeholderLabel.text = @"";
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

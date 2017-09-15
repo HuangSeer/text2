@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title=@"评价列表";
-    
+
     _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_height)];
     _tableView.dataSource=self;
     _tableView.delegate=self;
@@ -31,6 +31,17 @@
     _tableView.backgroundColor=[UIColor clearColor];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:_tableView];
+    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    UIButton * backItem = [[UIButton alloc]initWithFrame:CGRectMake(0, 16, 10, 18)];
+    [backItem setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backItem addTarget:self action:@selector(btnCkmore) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:backItem];
+    UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
+    [self.navigationItem setLeftBarButtonItem:leftItemBar];
+}
+-(void)btnCkmore
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _saveArray.count;

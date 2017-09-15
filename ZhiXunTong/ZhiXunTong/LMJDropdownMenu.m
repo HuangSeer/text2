@@ -20,6 +20,7 @@
 #import "LecwModel.h"
 #import "ContentModel.h"
 #import "NationModel.h"
+#import "BoModel.h"
 
 #import "PchHeader.h"
 #define VIEW_CENTER(aView)       ((aView).center)
@@ -215,9 +216,6 @@
             [self.delegate dropdownMenuDidHidden:self]; // 已经隐藏回调代理
         }
     }];
-    
-    
-    
     _mainBtn.selected = NO;
 }
 
@@ -232,7 +230,6 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         //---------------------------下拉选项样式，可在此处自定义-------------------------
@@ -241,14 +238,10 @@
         cell.textLabel.textColor     = [UIColor blackColor];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.selectionStyle          = UITableViewCellSelectionStyleNone;
-        
-//        UIView * line = [[UIView alloc] initWithFrame:CGRectMake(0, _rowHeight -0.5, VIEW_WIDTH(cell), 0.5)];
-//        line.backgroundColor = [UIColor blackColor];
-//        [cell addSubview:line];
-        
+
         //---------------------------------------------------------------------------
     }
-//    cell=[_titleArr objectAtIndex:indexPath.row];
+
     if ([_strpand containsString:@"level"]) {
         lmmArray=[[NSMutableArray alloc]initWithArray:[LovelModel mj_objectArrayWithKeyValuesArray:_titleArr]];
         LovelModel *loveM =[lmmArray objectAtIndex:indexPath.row];
@@ -293,6 +286,12 @@
         NationModel * NationM =[lmmArray objectAtIndex:indexPath.row];
         cell.textLabel.text =[NSString stringWithFormat:@"%@", NationM.Nation];
         return cell;
+    } else if([_strpand containsString:@"organize"]){
+        NSLog(@"_titleArr%@",_titleArr);
+        lmmArray=[[NSMutableArray alloc]initWithArray:[BoModel mj_objectArrayWithKeyValuesArray:_titleArr]];
+        BoModel * BoM =[lmmArray objectAtIndex:indexPath.row];
+        cell.textLabel.text =[NSString stringWithFormat:@"%@", BoM.organize];
+        return cell;
     }
     else{
         lmmArray=[[NSMutableArray alloc]initWithArray:[lmModel mj_objectArrayWithKeyValuesArray:_titleArr]];
@@ -328,6 +327,8 @@
     }
     else if([_strpand containsString:@"Nation"]){
         _NationM=lmmArray[indexPath.row];
+    }else if([_strpand containsString:@"organize"]){
+        _BoM=lmmArray[indexPath.row];
     }
         else{
         

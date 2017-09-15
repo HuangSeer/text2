@@ -30,6 +30,9 @@
     _pj_title.text=_PG_name;
     _pj_con.text=[NSString stringWithFormat:@"数量:%@",_PG_count];
     [_pj_img sd_setImageWithURL:[NSURL URLWithString:_PG_img] placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    _text_View.layer.borderColor = [UIColor grayColor].CGColor;
+    _text_View.layer.borderWidth =0.5;
+  
     float price=[_pg_price floatValue];
     _pj_price.text=[NSString stringWithFormat:@"￥%0.2f",price];
     TggStarEvaluationView *tggStarEvaView1 = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count){
@@ -112,15 +115,23 @@
     _text_View.delegate=self;
 //    [list.layer setCornerRadius:5];
     lable3=[[UILabel alloc] initWithFrame:CGRectMake(3, 4, 160, 20)];
-    lable3.text=@"评价...";
+    lable3.text=@"请输入你的评价";
     lable3.font=[UIFont systemFontOfSize:13];
     lable3.enabled=NO;
     [_text_View addSubview:lable3];
-    
-    
+    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    UIButton * backItem = [[UIButton alloc]initWithFrame:CGRectMake(0, 16, 10, 18)];
+    [backItem setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backItem addTarget:self action:@selector(btnCkmore) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:backItem];
+    UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
+    [self.navigationItem setLeftBarButtonItem:leftItemBar];
+}
+-(void)btnCkmore
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 - (IBAction)tijiao_bn:(id)sender {
-    NSLog(@"1234567");
     if (_text_View.text.length>0) {
         NSLog(@"提交评价");
         NSString *miaoshu=[NSString stringWithFormat:@"%ld",ms];
@@ -142,7 +153,7 @@
             
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+            [SVProgressHUD showErrorWithStatus:@"失败!!"];
         }];
     }
 }

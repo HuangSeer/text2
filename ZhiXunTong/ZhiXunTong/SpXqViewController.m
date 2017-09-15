@@ -134,7 +134,7 @@
         
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
    
     
@@ -142,7 +142,6 @@
 -(void)lodadate2{
     NSString *strurlpl=[NSString stringWithFormat:@"%@getAddressList.htm?currentPage=1&Cookie=%@",URLds,cookiestr];
     [ZQLNetWork getWithUrlString:strurlpl success:^(id data) {
-           NSLog(@"sad===222222222222222222==2=2=2========%@",data);
         _dataArray=[data objectForKey:@"list"];
         if (_dataArray != nil && ![_dataArray isKindOfClass:[NSNull class]] && _dataArray.count != 0) {
         _addrestr=[NSString stringWithFormat:@"%@%@",[_dataArray[0] valueForKey:@"areaName"],[_dataArray[0] valueForKey:@"area_info"]];
@@ -357,7 +356,7 @@
         viewshang=[[UIView alloc]initWithFrame:CGRectMake(Screen_Width/3, 0, Screen_Width/3, 40)];
         viewtou.backgroundColor=[UIColor whiteColor];
         viewshang.backgroundColor=[UIColor whiteColor];
-      if ([strqf containsString:@"1"]) {
+      if ([_strpdz containsString:@"1"]) {
           UILabel *labxz=[[UILabel alloc]initWithFrame:CGRectMake(8, 0, Screen_Width/3, 35)];
           labxz.text=@"评价";
           
@@ -397,7 +396,7 @@
         viewxian.backgroundColor=RGBColor(231, 231, 231);
         [viewtou addSubview:viewxian];
         [viewtou addSubview:viewshang];
-      [self butviewquanbu];
+        [self butviewquanbu];
       }
         return viewtou;
       
@@ -428,7 +427,7 @@
    
    else if (section==3) {
        return 40;
-    }else{
+   }else{
 
         return 0.00001;
     }
@@ -790,7 +789,6 @@
             NSString *strUrl = [strleix stringByReplacingOccurrencesOfString:@",(null)" withString:@""];
         if ([_strpdz containsString:@"1"]) {
             strurlphone =[NSString stringWithFormat:@"%@add_goods_cart.htm?id=%@&count=%@&gsp=%@",URLds,arrayspid[0],_strnum,strUrl];
-            NSLog(@"%@",strurlphone);
             [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
                 
                 NSLog(@"%@",data);
@@ -798,11 +796,10 @@
                 [SVProgressHUD showSuccessWithStatus:msg];
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
         }else{
             strurlphone =[NSString stringWithFormat:@"%@add_goods_cart.htm?id=%@&count=%@&gsp=%@",URLds,_intasid,_strnum,strUrl];
-            NSLog(@"%@",strurlphone);
             [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
                 
                 NSLog(@"%@",data);
@@ -810,7 +807,7 @@
                 [SVProgressHUD showSuccessWithStatus:msg];
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
 
         }
@@ -829,7 +826,7 @@
                 [SVProgressHUD showSuccessWithStatus:msg];
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
         }else{
     
@@ -841,7 +838,7 @@
                 [SVProgressHUD showSuccessWithStatus:msg];
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
         }
   

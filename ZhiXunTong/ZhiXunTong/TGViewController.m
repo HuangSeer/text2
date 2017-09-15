@@ -116,7 +116,7 @@ TGCollectionReusableView *headerView;
      {
          
          NSLog(@"---------------%@",error);
-         [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+         [SVProgressHUD showErrorWithStatus:@"失败!!"];
      }];
 }
 
@@ -335,10 +335,8 @@ TGCollectionReusableView *headerView;
             [self.navigationController pushViewController:SpXqVi animated:NO];
             self.navigationController.navigationBarHidden=NO;
             self.tabBarController.tabBar.hidden=YES;
-            //                [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
     }else{
         
@@ -438,10 +436,8 @@ TGCollectionReusableView *headerView;
             [self.navigationController pushViewController:SpXqVi animated:NO];
             self.navigationController.navigationBarHidden=NO;
             self.tabBarController.tabBar.hidden=YES;
-            //                [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
     }else{
         

@@ -108,19 +108,19 @@
         xian.backgroundColor=[UIColor grayColor];
         [cell.contentView addSubview:xian];
         
-        UILabel *lable1=[[UILabel alloc] initWithFrame:CGRectMake(0, 50, 70, 30)];
+        UILabel *lable1=[[UILabel alloc] initWithFrame:CGRectMake(10, 50, 60, 30)];
         lable1.text=@"小区信息";
         lable1.font=[UIFont systemFontOfSize:13];
-        lable1.textAlignment=NSTextAlignmentRight;
+        lable1.textAlignment=NSTextAlignmentLeft;
         [cell.contentView addSubview:lable1];
         
-        UILabel *lable2=[[UILabel alloc] initWithFrame:CGRectMake(0, 100, 70, 30)];;
-        lable2.text=@"身份";
+        UILabel *lable2=[[UILabel alloc] initWithFrame:CGRectMake(10, 100, 60, 30)];;
+        lable2.text=@"身        份";
         lable2.font=[UIFont systemFontOfSize:13];
-        lable2.textAlignment=NSTextAlignmentRight;
+        lable2.textAlignment=NSTextAlignmentLeft;
         [cell.contentView addSubview:lable2];
         //小区
-        textLalbe=[[UILabel alloc] initWithFrame:CGRectMake(90, 45, Screen_Width-100, 40)];
+        textLalbe=[[UILabel alloc] initWithFrame:CGRectMake(70, 45, Screen_Width-100, 35)];
         UITapGestureRecognizer *tapRecognizerWeibo=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lableBtn)];
         textLalbe.userInteractionEnabled=YES;
         [textLalbe addGestureRecognizer:tapRecognizerWeibo];
@@ -130,12 +130,12 @@
         textLalbe.layer.masksToBounds = YES;
         textLalbe.font=[UIFont systemFontOfSize:13];
         [cell.contentView addSubview:textLalbe];
-        UIImageView *aa=[[UIImageView alloc] initWithFrame:CGRectMake(Screen_Width-120, 10, 20, 20)];
+        UIImageView *aa=[[UIImageView alloc] initWithFrame:CGRectMake(Screen_Width-125, 10, 15, 13)];
         UIImage *img=[UIImage imageNamed:@"1.png"];
         aa.image =img;
         [textLalbe addSubview:aa];
         //业主
-        textLalbe1=[[UILabel alloc] initWithFrame:CGRectMake(90, 95, Screen_Width-100, 40)];
+        textLalbe1=[[UILabel alloc] initWithFrame:CGRectMake(70, 95, Screen_Width-100, 35)];
         UITapGestureRecognizer *tapRecognizerWeibo1=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ylableBtn)];
         textLalbe1.userInteractionEnabled=YES;
         [textLalbe1 addGestureRecognizer:tapRecognizerWeibo1];
@@ -145,13 +145,13 @@
         textLalbe1.layer.masksToBounds = YES;
         textLalbe1.font=[UIFont systemFontOfSize:13];
         [cell.contentView addSubview:textLalbe1];
-        UIImageView *aa1=[[UIImageView alloc] initWithFrame:CGRectMake(Screen_Width-120, 10, 20, 20)];
+        UIImageView *aa1=[[UIImageView alloc] initWithFrame:CGRectMake(Screen_Width-125, 10, 15, 13)];
         UIImage *img1=[UIImage imageNamed:@"1.png"];
         aa1.image =img1;
         [textLalbe1 addSubview:aa1];
         //分割
         UIView *fenxian=[[UIView alloc] initWithFrame:CGRectMake(0, 149, Screen_Width,10)];
-        fenxian.backgroundColor=[UIColor grayColor];
+        fenxian.backgroundColor=RGBColor(231, 231, 231);
         [cell.contentView addSubview:fenxian];
     }
     else if(indexPath.row==1)

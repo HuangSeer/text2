@@ -24,7 +24,7 @@
 #import "SpXqViewController.h"
 #import "LunWebViewController.h"
 #import "SearchViewController.h"
-@interface DianShangViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>{
+@interface DianShangViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UITextFieldDelegate>{
     DianShangHeader *meView;
     UITableView *_tableView;
     
@@ -48,6 +48,7 @@
     NSString *cartGoodsCount;
     UIButton *BtnShu;
 }
+@property(strong,nonatomic) UITextField *textFile2;
 @property (strong,nonatomic) SDCycleScrollView *topPhotoBoworr;
 @end
 
@@ -69,7 +70,7 @@
             integral=[[data objectForKey:@"data"] valueForKey:@"integral"];
             cartGoodsCount=[[data objectForKey:@"data"] objectForKey:@"cartGoodsCount"];
             [BtnShu setTitle:[NSString stringWithFormat:@"%@",cartGoodsCount] forState:UIControlStateNormal];
-            NSLog(@"%@==bb==",cartGoodsCount);
+          
             NSString *xstr=[NSString stringWithFormat:@"http://192.168.1.223:8080/shopping/api/thirdPartyLogin.htm?mobileNum=%@",phone];
             NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookiesForURL:[NSURL URLWithString:xstr]];
             for (NSHTTPCookie *tempCookie in cookies)
@@ -81,7 +82,6 @@
             
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
     }
     if (TMArray.count==0&&LeiXingArray.count==0&&LunArray.count==0) {
@@ -101,7 +101,7 @@
     myIdArray=[NSMutableArray arrayWithCapacity:0];
     LunArray=[NSMutableArray arrayWithCapacity:0];
     LunTitleArray=[NSMutableArray arrayWithCapacity:0];
-    
+
     [self HeaderView];//视图
 
 }
@@ -122,11 +122,12 @@
         if (myIdArray.count>0) {
             [self PostNeiRong:[myIdArray objectAtIndex:0]];
             [headerView setUpTitleArray:myarray titleColor:[UIColor blackColor] titleSelectedColor:RGBColor(65, 140, 12) titleFontSize:0];
+      
         }
         
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 -(void)PostNeiRong:(NSString*)notid
@@ -136,17 +137,10 @@
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
         NSLog(@"PostNeiRong===%@",data);
         TMArray=[DianShangModel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"data"]];
-        NSLog(@"%@",TMArray);
-//        if (TMArray.count>0) {
-//            [SVProgressHUD showSuccessWithStatus:@"加载成功"];
-//        }else{
-//            [SVProgressHUD showErrorWithStatus:@"没有此类商品"];
-//        }
-        
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 -(void)CNLove
@@ -156,11 +150,12 @@
     [ZQLNetWork getWithUrlString:string2 success:^(id data) {
         NSLog(@"CNLove=%@",data);
         TJArray=[TuiJieModel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"list"]];
+     
         [_tableView reloadData];
     } failure:^(NSError *error)
      {
          NSLog(@"---------------%@",error);
-         [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+         [SVProgressHUD showErrorWithStatus:@"失败!!"];
      }];
 
 }
@@ -175,6 +170,13 @@
             [meView addSubview:self.topPhotoBoworr];
             _topPhotoBoworr.imageURLStringsGroup =LunArray ;
             _topPhotoBoworr.titlesGroup = LunTitleArray;
+//            _textFile2= [[UITextField alloc]initWithFrame:CGRectMake( Screen_Width/4.3+10, 5, Screen_Width/1.6 ,35)];
+//            _textFile2.backgroundColor = [UIColor clearColor];
+//    
+//            _textFile2.layer.borderColor= RGBColor(230, 233, 233).CGColor;
+//            _textFile2.placeholder = @"请输入";
+//            _textFile2.layer.borderWidth= 5.0f;
+//            [_topPhotoBoworr addSubview:_textFile2];
         }else{
             NSLog(@"轮播图没有数据 请求失败");
             _topPhotoBoworr.imageURLStringsGroup =@[@"默认图片"];
@@ -186,7 +188,7 @@
     {
         
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 -(void)HeaderView
@@ -233,17 +235,17 @@
     _tableView.dataSource=self;
     _tableView.delegate=self;
     _tableView.showsVerticalScrollIndicator =NO;
-//    UIView *aa=[[UIView alloc] initWithFrame:CGRectMake(40, 10, Screen_Width-100, 30)];
-//    aa.backgroundColor=[UIColor clearColor];
-//    
-//    //设置aa的圆角
-//    aa.layer.cornerRadius = 12;
-//    aa.layer.masksToBounds = YES;
-//    //给图层添加一个有色边框
-//    aa.layer.borderWidth = 1;
-//    aa.layer.borderColor = [[UIColor whiteColor] CGColor];
-//    
-//    [self.topPhotoBoworr addSubview:aa];
+    UIView *aa=[[UIView alloc] initWithFrame:CGRectMake(40, 10, Screen_Width-100, 30)];
+    aa.backgroundColor=[UIColor clearColor];
+    
+    //设置aa的圆角
+    aa.layer.cornerRadius = 12;
+    aa.layer.masksToBounds = YES;
+    //给图层添加一个有色边框
+    aa.layer.borderWidth = 1;
+    aa.layer.borderColor = [[UIColor whiteColor] CGColor];
+    
+    [self.topPhotoBoworr addSubview:aa];
     
     UIButton *BtnGouWu=[[UIButton alloc] initWithFrame:CGRectMake(Screen_Width-50, 8, 36, 32)];
     [BtnGouWu setImage:[UIImage imageNamed:@"gouwuche.png"] forState:UIControlStateNormal];
@@ -256,15 +258,12 @@
     BtnShu.titleLabel.font=[UIFont systemFontOfSize:11];
     [BtnShu addTarget:self action:@selector(BtnGouWuChe) forControlEvents:UIControlEventTouchUpInside];
     [self.topPhotoBoworr addSubview:BtnShu];
-//    
-//    TextSearch=[[UITextField alloc] initWithFrame:CGRectMake(10, 2, Screen_Width-140, 26)];
-//    TextSearch.placeholder=@"12345678";
-//    [aa addSubview:TextSearch];
-    UIButton *BtnSearch=[[UIButton alloc] initWithFrame:CGRectMake(5, 8, 30, 27)];
-    [BtnSearch setBackgroundImage:[UIImage imageNamed:@"serch.png"] forState:UIControlStateNormal];
-    [BtnSearch addTarget:self action:@selector(BtnChaXun) forControlEvents:UIControlEventTouchUpInside];
-    [self.topPhotoBoworr addSubview:BtnSearch];
     
+    TextSearch=[[UITextField alloc] initWithFrame:CGRectMake(10, 2, Screen_Width-140, 26)];
+    TextSearch.placeholder=@"请输入";
+    TextSearch.delegate=self;
+
+    [aa addSubview:TextSearch];
     
     [_tableView setTableHeaderView:meView];
     _tableView.backgroundColor=[UIColor clearColor];
@@ -495,31 +494,10 @@
 {
     UIView *viewClicked=[gestureRecognizer view];
     if (viewClicked==meView.ImgView01) {
-        NSLog(@"积分商城");
-//        if (userinfo.count>0) {
-//            NSString *strurlphone=[NSString stringWithFormat:@"%@/shopping/api/thirdPartyLogin.htm?mobileNum=%@",DsURL,phone];
-//            NSLog(@"%@",strurlphone);
-//            [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
-//                NSLog(@"%@==bb==",data);
-//                integral=[[data objectForKey:@"data"] valueForKey:@"integral"];
-//                NSString *xstr=[NSString stringWithFormat:@"http://192.168.1.223:8080/shopping/api/thirdPartyLogin.htm?mobileNum=%@",phone];
-//                NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookiesForURL:[NSURL URLWithString:xstr]];
-//                for (NSHTTPCookie *tempCookie in cookies)
-//                {
-//                    cookiestr=tempCookie.value;
-//                }
-//                [[NSUserDefaults standardUserDefaults] setObject:cookiestr forKey:Cookiestr];
                 JiFenViewController *JiFenVi=[[JiFenViewController alloc] init];
                 JiFenVi.integral=integral;
                 [self.navigationController pushViewController:JiFenVi animated:NO];
-                self.tabBarController.tabBar.hidden=YES;
-                //                [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
-//            } failure:^(NSError *error) {
-//                NSLog(@"---------------%@",error);
-//                //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
-//            }];
-//        }
-    }
+                self.tabBarController.tabBar.hidden=YES;    }
     else if(viewClicked==meView.ImgView02)
     {
         NSLog(@"品牌专题");
@@ -585,6 +563,16 @@
     NSLog(@"%@",LunurlArray[index]);
     
 }
+-(void)textFieldDidBeginEditing:(UITextField*)textField
+
+{
+    [TextSearch resignFirstResponder];
+    SearchViewController *SearchV=[[SearchViewController alloc]init];
+    [self.navigationController pushViewController:SearchV animated:NO];
+  
+    
+}
+
 -(void)BtnChaXun
 {
         SearchViewController *SearchV=[[SearchViewController alloc]init];

@@ -113,6 +113,17 @@
     [self.view addSubview:self.leftTableView];
     [self.view addSubview:self.zhongTableView];
     [self.view addSubview:self.rightTableView];
+    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    UIButton * backItem = [[UIButton alloc]initWithFrame:CGRectMake(0, 16, 10, 18)];
+    [backItem setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backItem addTarget:self action:@selector(btnCkmore) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:backItem];
+    UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
+    [self.navigationItem setLeftBarButtonItem:leftItemBar];
+}
+-(void)btnCkmore
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)btnLaike
 {
@@ -216,17 +227,6 @@
     // [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"hongse.png"] forBarMetrics:UIBarMetricsDefault];
     
     self.navigationItem.title=@"绑定小区";
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    UIButton * backItem = [[UIButton alloc]initWithFrame:CGRectMake(0, 4, 36, 36)];
-    [backItem setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backItem addTarget:self action:@selector(btnCkmore) forControlEvents:UIControlEventTouchUpInside];
-    [backView addSubview:backItem];
-    UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
-    [self.navigationItem setLeftBarButtonItem:leftItemBar];
-}
--(void)btnCkmore{
-    [self.navigationController popViewControllerAnimated:NO];
 }
 #pragma mark - UITableViewDelegate
 

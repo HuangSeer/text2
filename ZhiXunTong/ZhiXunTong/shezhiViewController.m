@@ -15,6 +15,7 @@
 #import "DiZhiViewController.h"
 #import "FangWuBDViewController.h"//房屋绑定
 #import "JiaJuViewController.h"
+#import "LoginViewController.h"
 #define WS(weakSelf)        __weak __typeof(&*self)weakSelf = self
 @interface shezhiViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationBarDelegate>
 {
@@ -94,6 +95,7 @@ static shezhiViewController* instance;
         
         if (ttxx!=nil) {
             imgString=[userDefaults objectForKey:TX];
+            yhName=[[arry objectAtIndex:0] objectForKey:@"userName"];
         }else{
             imgString=[[arry objectAtIndex:0] objectForKey:@"Head_portrait"];
             yhName=[[arry objectAtIndex:0] objectForKey:@"userName"];
@@ -187,6 +189,7 @@ static shezhiViewController* instance;
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:CellIdentifier];
     }
     cell.textLabel.font=[UIFont systemFontOfSize:15.0f];
+    cell.textLabel.textColor=RGBColor(30, 30, 30);
     UIImageView *youjiantou=[[UIImageView alloc]initWithFrame:CGRectMake(Screen_Width-35, (cell.frame.size.height-24)/2, 16, 24)];//16, 24
     youjiantou.image=[UIImage imageNamed:@"youjiantou.png"];
     [cell.contentView addSubview:youjiantou];
@@ -197,7 +200,6 @@ static shezhiViewController* instance;
             touImag.userInteractionEnabled = YES;//打开用户交互
             touImag.layer.masksToBounds=YES;
             touImag.layer.cornerRadius=touImag.bounds.size.width*0.5;
-            //touImag.layer.borderWidth=5;
             touImag.layer.borderColor=[UIColor whiteColor].CGColor;
             touImag.backgroundColor=[UIColor clearColor];
             if (!touImag) {
@@ -205,7 +207,7 @@ static shezhiViewController* instance;
             }else{
                 str=[NSString stringWithFormat:@"%@%@",URL,imgString];
             }
-            
+            lab2.textColor=RGBColor(30, 30, 30);lab.textColor=RGBColor(30, 30, 30);
             NSURL *url=[NSURL URLWithString:str];
             [touImag addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shangchuan)]];
             //设置网络图片--默认图片
@@ -366,14 +368,30 @@ static shezhiViewController* instance;
             
         }
     }else if (indexPath.section==1){
-        DiZhiViewController *dizhi=[[DiZhiViewController alloc] init];
+        if (userInfo.count>0) {
+            NSString *strurlphone=[NSString stringWithFormat:@"%@/shopping/api/thirdPartyLogin.htm?mobileNum=%@",DsURL,phone];
+            [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
+                NSLog(@"%@==bb==",data);
+                              
+                DiZhiViewController *dizhi=[[DiZhiViewController alloc] init];
+                
+                dizhi.strsd=@"1";
+                [self.navigationController pushViewController:dizhi animated:NO];
+            } failure:^(NSError *error) {
+                NSLog(@"---------------%@",error);
+            }];
+        }else{
+            LoginViewController *login=[[LoginViewController alloc] init];
+            [self.navigationController pushViewController:login animated:NO];
+            self.navigationController.navigationBarHidden=NO;
+            self.tabBarController.tabBar.hidden=YES;
         
-        dizhi.strsd=@"1";
-        [self.navigationController pushViewController:dizhi animated:NO];
+        }
+
+ 
         
     }else if (indexPath.section==2){
         if (indexPath.row==0) {
-//            [SVProgressHUD showSuccessWithStatus:@"房屋绑定"];
             //房屋绑定
             FangWuBDViewController *fangwu=[[FangWuBDViewController alloc] init];
             [self.navigationController pushViewController:fangwu animated:NO];
@@ -429,22 +447,15 @@ static shezhiViewController* instance;
     WS(weakSelf);// 防止循环引用
     self.view_inputView = [[ZJInptutView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width,Screen_height) andTitle:@"请输入昵称" andPlaceHolderTitle:@"请输入"];
     [self.view addSubview:self.view_inputView];
-//    NSLog(@"%@-%@-%@-",ddkey,ddtvinfo,notid);
     self.view_inputView.removeView = ^(NSString *title){
-        NSLog(@"hehehe--%@",title);
         [[WebClient sharedClient] NiChen:ddtvinfo Keys:ddkey deptid:notid nickName:title ResponseBlock:^(id resultObject, NSError *error) {
             NSLog(@"resultObject=%@",resultObject);
             //
             NSString *sta=[resultObject objectForKey:@"Status"];
             
             int ss=[sta intValue];
-            NSLog(@"%d",ss);
             if (ss==1) {
-//                username=@"";
-//                lab.text=@"";
                 xiuName=[resultObject objectForKey:@"nickname"];
-//                    NSLog(@"username=%@",username);
-//                
                 [userDefaults removeObjectForKey:nikName];
                 [[NSUserDefaults standardUserDefaults] setObject:xiuName forKey:nikName];
                 lab.text=xiuName;
@@ -457,8 +468,6 @@ static shezhiViewController* instance;
             }
             
         }];
-       // [weakSelf.button_popView setTitle:title forState:0];
-        
         [weakSelf.view_inputView removeFromSuperview];
     };
     
@@ -466,13 +475,11 @@ static shezhiViewController* instance;
 -(void)BtnClick:(UIButton *)btn
 {
     if (btn.tag==500) {
-        NSLog(@"注销");
         [[WebClient sharedClient]GetId:notid ResponseBlock:^(id resultObject, NSError *error) {
           
             NSString *ss=[resultObject objectForKey:@"Status"];
             int aa=[ss intValue];
             if (aa==1) {
-               // NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults removeObjectForKey:UserInfo];
                 [SVProgressHUD showSuccessWithStatus:@"成功退出"];
                 [self btnCkmore];

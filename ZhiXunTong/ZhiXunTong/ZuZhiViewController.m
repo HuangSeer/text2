@@ -36,7 +36,6 @@
     UIButton *button;
     UIView *jiemianview;
     UIButton *butsous;
-    
     UILabel *_placeholderLabel;
     NSMutableDictionary *userInfo;
     NSString *ddtvinfo;
@@ -47,8 +46,6 @@
     UITableView *tableView;
     NSMutableArray *_dataArray;
     NSString *time;
-   
-    
 }
 @property (nonatomic, assign) NSInteger currentPage;  //当前页
 @property(strong ,nonatomic) UIWebView * webView;
@@ -70,7 +67,6 @@
     username=[[arry objectAtIndex:0] objectForKey:@"userName"];
     self.title=@"组织概况";
     [self changeButton];
-//    [self scroll];
     //返回按钮
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"lanse.png"] forBarMetrics:UIBarMetricsDefault];
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -148,7 +144,6 @@
 }
 
 - (void)buttonClick:(UIButton *)buttonClick{
-//    UIButton *button;
     for (int i = 0; i<titleArray.count; i++) {
       view = _viewArray[i];
         button = _buttonArray[i];
@@ -190,21 +185,21 @@
             }
         }
        else if (buttonClick.tag == 1) {
-           [jiemianview removeFromSuperview];
-           jiemianview=[[UIView alloc]initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, self.view.frame.size.height-55)];
-           jiemianview.backgroundColor=RGBColor(248, 248, 248);
+            [jiemianview removeFromSuperview];
+            jiemianview=[[UIView alloc]initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, self.view.frame.size.height-55)];
+            jiemianview.backgroundColor=RGBColor(248, 248, 248);
             [self.view addSubview:jiemianview];
             view.hidden = NO;
             view.frame=CGRectMake(kongView.frame.size.width/titleArray.count*1, 42, kongView.frame.size.width/titleArray.count,3);
-           self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,jiemianview.frame.size.width, jiemianview.frame.size.height)];
-           
-           NSURL *urls=[NSURL URLWithString:[URL stringByAppendingString:[NSString stringWithFormat:@"/api/Html/Party.aspx?&Key=%@&TVInfoId=%@&Deptid=%@&id=0",ddkey,ddtvinfo,Deptid]]];
-           NSLog(@"%@",urls);
-           [jiemianview addSubview:self.webView];
-             NSURLRequest * request = [NSURLRequest requestWithURL:urls];
-//           NSURLRequest * request = [NSURLRequest requestWithURL:request]];
-           self.webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
-           [self.webView loadRequest:request];
+            self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,jiemianview.frame.size.width, jiemianview.frame.size.height)];
+
+            NSURL *urls=[NSURL URLWithString:[URL stringByAppendingString:[NSString stringWithFormat:@"/api/Html/Party.aspx?&Key=%@&TVInfoId=%@&Deptid=%@&id=0",ddkey,ddtvinfo,Deptid]]];
+            NSLog(@"%@",urls);
+            [jiemianview addSubview:self.webView];
+            NSURLRequest * request = [NSURLRequest requestWithURL:urls];
+            //           NSURLRequest * request = [NSURLRequest requestWithURL:request]];
+            self.webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
+            [self.webView loadRequest:request];
            if (i == 1) {
                button.tintColor =[UIColor redColor];
            }else{
@@ -214,22 +209,22 @@
            
         }
        else if (buttonClick.tag == 2) {
-           [jiemianview removeFromSuperview];
-           jiemianview=[[UIView alloc]initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, self.view.frame.size.height-55)];
-           jiemianview.backgroundColor=RGBColor(248, 248, 248);
-           [self.view addSubview:jiemianview];
+            [jiemianview removeFromSuperview];
+            jiemianview=[[UIView alloc]initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, self.view.frame.size.height-55)];
+            jiemianview.backgroundColor=RGBColor(248, 248, 248);
+            [self.view addSubview:jiemianview];
             view.hidden = NO;
             view.frame=CGRectMake(kongView.frame.size.width/titleArray.count*2, 42, kongView.frame.size.width/titleArray.count,3);
-           self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,jiemianview.frame.size.width, jiemianview.frame.size.height)];
-           
-           NSURL *urls=[NSURL URLWithString:[URL stringByAppendingString:[NSString stringWithFormat:@"/api/Html/Party.aspx?&Key=%@&TVInfoId=%@&Deptid=%@&id=1",ddkey,ddtvinfo,Deptid]]];
-           NSLog(@"%@",urls);
-           [jiemianview addSubview:self.webView];
-           NSURLRequest * request = [NSURLRequest requestWithURL:urls];
-           //           NSURLRequest * request = [NSURLRequest requestWithURL:request]];
-           self.webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
-           
-           [self.webView loadRequest:request];
+            self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,jiemianview.frame.size.width, jiemianview.frame.size.height)];
+
+            NSURL *urls=[NSURL URLWithString:[URL stringByAppendingString:[NSString stringWithFormat:@"/api/Html/Party.aspx?&Key=%@&TVInfoId=%@&Deptid=%@&id=1",ddkey,ddtvinfo,Deptid]]];
+            NSLog(@"%@",urls);
+            [jiemianview addSubview:self.webView];
+            NSURLRequest * request = [NSURLRequest requestWithURL:urls];
+            //           NSURLRequest * request = [NSURLRequest requestWithURL:request]];
+            self.webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
+
+            [self.webView loadRequest:request];
 
            if (i == 2) {
                button.tintColor =[UIColor redColor];
@@ -279,31 +274,28 @@
             //得到最后一位身份证号码
             NSString *idCardLast= [_textFile.text substringWithRange:NSMakeRange(17, 1)];
             //如果等于2，则说明校验码是10，身份证号码最后一位应该是X
-            NSLog(@"idCardMod==%ld",idCardMod);
-            //if(idCardMod==2) {
                 if([idCardLast isEqualToString:@"X"]||[idCardLast isEqualToString:@"x"]) {
-                    [[WebClient sharedClient] Organize:ddtvinfo Keys:ddkey deptid:Deptid idcard:_textFile.text ResponseBlock:^(id resultObject, NSError *error) {
-                        NSLog(@"%@",resultObject);
-                        _muipArray=[resultObject objectForKey:@"Data"];
-                        NSArray *array=[[resultObject objectForKey:@"Data"] valueForKey:@"position"];
-                          NSString *position=[array objectAtIndex:0];
-                        _dataArray=[ZUzhiModel mj_objectArrayWithKeyValuesArray:_muipArray];
-                        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(5, 50, jiemianview.frame.size.width-10, 20)];
-                        lab.font=[UIFont systemFontOfSize:13.0f];
-                        lab.text=[NSString stringWithFormat:@"你所在的党组织在:%@",position];
-                        
-                        _dataArray=[ZUzhiModel mj_objectArrayWithKeyValuesArray:_muipArray];
-                     
-                          [self initTableView];
-                    }];
+                [[WebClient sharedClient] Organize:ddtvinfo Keys:ddkey deptid:Deptid idcard:_textFile.text ResponseBlock:^(id resultObject, NSError *error) {
+                    NSLog(@"%@",resultObject);
+                    _muipArray=[resultObject objectForKey:@"Data"];
+                    NSArray *array=[[resultObject objectForKey:@"Data"] valueForKey:@"position"];
+                      NSString *position=[array objectAtIndex:0];
+                    _dataArray=[ZUzhiModel mj_objectArrayWithKeyValuesArray:_muipArray];
+                    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(5, 50, jiemianview.frame.size.width-10, 20)];
+                    lab.font=[UIFont systemFontOfSize:13.0f];
+                    lab.text=[NSString stringWithFormat:@"你所在的党组织在:%@",position];
+                    
+                    _dataArray=[ZUzhiModel mj_objectArrayWithKeyValuesArray:_muipArray];
+                 
+                      [self initTableView];
+                }];
             }else{
                 //用计算出的验证码与最后一位身份证号码匹配，如果一致，说明通过，否则是无效的身份证号码
 
                 if([idCardLast isEqualToString: [idCardYArray objectAtIndex:idCardMod]]) {
                     [[WebClient sharedClient] Organize:ddtvinfo Keys:ddkey deptid:Deptid idcard:_textFile.text ResponseBlock:^(id resultObject, NSError *error) {
                          NSLog(@"%@",resultObject);
-                          _muipArray=[resultObject objectForKey:@"Data"];
-//                        NSString *position=[[resultObject objectForKey:@"Data"] valueForKey:@"position"];
+                        _muipArray=[resultObject objectForKey:@"Data"];
                         _dataArray=[ZUzhiModel mj_objectArrayWithKeyValuesArray:_muipArray];
                         NSArray *array=[[resultObject objectForKey:@"Data"] valueForKey:@"position"];
                         NSString *position=[array objectAtIndex:0];
@@ -366,44 +358,36 @@
     
     
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    DetailsViewController *sp = [[DetailsViewController alloc] init];
-    //    sp.uid=_uid;
-    //    OutModel *typeShop=_dataArray[indexPath.row];
-    //    sp.id=typeShop.id;
-    //    [self.navigationController pushViewController:sp animated:YES];
-}
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    self.currentPage=1;
-    // 1.数据操作
-    [self butsousayuan];
-    
-    // 2.2秒后刷新表格UI
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.currentPage=1;
+        // 1.数据操作
+        [self butsousayuan];
+
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
         [tableView reloadData];
-        
+
         // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
         [tableView.mj_header endRefreshing];
-    });
+        });
 }
 
 - (void)footerRereshing
 {
-    // 1.数据操作
-    self.currentPage++;
-    [self butsousayuan];
-    
-    // 2.2秒后刷新表格UI
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 1.数据操作
+        self.currentPage++;
+        [self butsousayuan];
+
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
         [tableView reloadData];
-        //
-        //        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
         [tableView.mj_footer endRefreshing];
-    });
+        });
 }
 
 

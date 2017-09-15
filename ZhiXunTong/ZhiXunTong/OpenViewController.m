@@ -93,6 +93,7 @@
 
 
 -(void)btnCkmore{
+    [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)myCollect{

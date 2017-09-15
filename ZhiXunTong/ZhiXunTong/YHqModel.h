@@ -1,10 +1,5 @@
 //
 //  YHqModel.h
-//  LeBao
-//
-//  Created by 小黄人 on 2017/5/8.
-//  Copyright © 2017年 小黄人. All rights reserved.
-//
 //"coupon_amount" = 20;
 //"coupon_begin_time" = "2014-09-01 00:00:00";
 //"coupon_end_time" = "2017-10-19 00:00:00";

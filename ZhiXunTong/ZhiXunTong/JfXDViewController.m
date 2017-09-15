@@ -148,7 +148,7 @@
                 [tableView reloadData];
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
             //如果删除的时候数据紊乱,可延迟0.5s刷新一下
 //            [self performSelector:@selector(lodadate2) withObject:nil afterDelay:0.5];
@@ -299,7 +299,7 @@
 
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 
 }

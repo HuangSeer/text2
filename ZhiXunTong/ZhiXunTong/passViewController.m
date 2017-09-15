@@ -51,21 +51,21 @@
     [self.navigationItem setLeftBarButtonItem:leftItemBar];
     
     
-    UILabel *aa=[[UILabel alloc] initWithFrame:CGRectMake(40, 50, Screen_Width-80, 35)];
+    UILabel *aa=[[UILabel alloc] initWithFrame:CGRectMake(40, 10, Screen_Width-80, 35)];
     aa.text=@"输入新的手机号码：";
     [self.view addSubview:aa];
-    textiphone=[[UITextField alloc] initWithFrame:CGRectMake(40, 100, Screen_Width-80, 35)];
+    textiphone=[[UITextField alloc] initWithFrame:CGRectMake(40, 60, Screen_Width-80, 35)];
     textiphone.textAlignment = NSTextAlignmentLeft;
     textiphone.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:textiphone];
-    textuser=[[UITextField alloc] initWithFrame:CGRectMake(40, 150, (Screen_Width-80)/2, 35)];
+    textuser=[[UITextField alloc] initWithFrame:CGRectMake(40, 110, (Screen_Width-80)/2, 35)];
     textuser.textAlignment = NSTextAlignmentLeft;
     textuser.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:textuser];
     
     
     UIButton *zhuce = [UIButton buttonWithType:UIButtonTypeCustom];
-    zhuce.frame = CGRectMake(Screen_Width/2-70, 240, 140, 35);
+    zhuce.frame = CGRectMake(Screen_Width/2-70, 165, 140, 35);
     zhuce.backgroundColor = [UIColor blueColor];
     [zhuce setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     zhuce.titleLabel.font=[UIFont systemFontOfSize:17];
@@ -76,7 +76,7 @@
     [self.view addSubview:zhuce];
     
     yanz = [UIButton buttonWithType:UIButtonTypeCustom];
-    yanz.frame = CGRectMake((Screen_Width-80)/2+60, 150, (Screen_Width-80)/2-20, 35);
+    yanz.frame = CGRectMake((Screen_Width-80)/2+60, 110, (Screen_Width-80)/2-20, 35);
     yanz.backgroundColor = [UIColor blueColor];
     [yanz setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     yanz.titleLabel.font=[UIFont systemFontOfSize:13];

@@ -91,7 +91,7 @@ JeFenCollectionReusableView *headerView;
      LunurlArray=[data valueForKey:@"ad_url"];
   } failure:^(NSError *error) {
        NSLog(@"---------------%@",error);
-    [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+    [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 //cell数据请求
@@ -116,7 +116,7 @@ JeFenCollectionReusableView *headerView;
       [homec reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
         _ModelArray=nil;
          [homec reloadData];
     }];
@@ -191,12 +191,12 @@ JeFenCollectionReusableView *headerView;
             [headerView.yiLable setAttributedText:noteStr];
             [headerView.yiLable sizeToFit];
 
-            viewas=[[UIView alloc]initWithFrame:CGRectMake(0, headerView.frame.size.height-40, Screen_Width, 39)];
+            viewas=[[UIView alloc]initWithFrame:CGRectMake(0, headerView.frame.size.height-35, Screen_Width, 34)];
             viewas.backgroundColor=[UIColor whiteColor];
             titleArray=@[@"推荐",@"小于2000",@"2000~4000",@"4000~6000",@"6000~10000"];
             for (int i = 0 ; i < titleArray.count; i++) {
                 button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                button.frame = CGRectMake(viewas.frame.size.width/titleArray.count*i, 5, viewas.frame.size.width/titleArray.count-5, 39);
+                button.frame = CGRectMake(viewas.frame.size.width/titleArray.count*i, 5, viewas.frame.size.width/titleArray.count-5, 34);
                 [button setFont:[UIFont systemFontOfSize:9.0f]];
                 [button setTitle:titleArray[i] forState:UIControlStateNormal];
                 button.tintColor = [UIColor grayColor];
@@ -207,7 +207,7 @@ JeFenCollectionReusableView *headerView;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
                 [viewas addSubview:button];
                 
-                view = [[UIView alloc] initWithFrame:CGRectMake(viewas.frame.size.width/titleArray.count*i, 37, viewas.frame.size.width/titleArray.count-5,2)];
+                view = [[UIView alloc] initWithFrame:CGRectMake(viewas.frame.size.width/titleArray.count*i, 32, viewas.frame.size.width/titleArray.count-5,2)];
                 view.backgroundColor = RGBColor(93, 225, 30);
                 if (i == [strqf intValue]) {
                     view.hidden = NO;
@@ -283,7 +283,7 @@ JeFenCollectionReusableView *headerView;
             strqf=@"0";
             _currentPage=1;
             view.hidden = NO;
-            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*0, 37, viewas.frame.size.width/titleArray.count,2);
+            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*0, 32, viewas.frame.size.width/titleArray.count,2);
            
             if (buttonClick.tag == 0) {
                 buttonClick.tintColor =RGBColor(93, 225, 30);
@@ -299,7 +299,7 @@ JeFenCollectionReusableView *headerView;
             strqf=@"1";
               _currentPage=1;
             view.hidden = NO;
-            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*1,37, viewas.frame.size.width/titleArray.count,2);
+            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*1,32, viewas.frame.size.width/titleArray.count,2);
             
             if (buttonClick.tag == 1) {
                 buttonClick.tintColor =RGBColor(93, 225, 30);
@@ -316,7 +316,7 @@ JeFenCollectionReusableView *headerView;
               _currentPage=1;
             view.hidden = NO;
            
-            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*2, 37, viewas.frame.size.width/titleArray.count,2);
+            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*2, 32, viewas.frame.size.width/titleArray.count,2);
             
             if (buttonClick.tag == 2) {
                 buttonClick.tintColor =RGBColor(93, 225, 30);
@@ -333,7 +333,7 @@ JeFenCollectionReusableView *headerView;
               _currentPage=1;
          
             view.hidden = NO;
-            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*3, 37, viewas.frame.size.width/titleArray.count,2);
+            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*3, 32, viewas.frame.size.width/titleArray.count,2);
         
             if (buttonClick.tag == 3) {
                 buttonClick.tintColor =RGBColor(93, 225, 30);
@@ -349,7 +349,7 @@ JeFenCollectionReusableView *headerView;
             strqf=@"4";
              _currentPage=1;
             view.hidden = NO;
-            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*4, 37, viewas.frame.size.width/titleArray.count,2);
+            view.frame=CGRectMake(viewas.frame.size.width/titleArray.count*4, 32, viewas.frame.size.width/titleArray.count,2);
             if (buttonClick.tag== 4) {
                 buttonClick.tintColor =RGBColor(93, 225, 30);
             }
@@ -409,11 +409,9 @@ JeFenCollectionReusableView *headerView;
             
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
         
     }else{
-//        [SVProgressHUD showErrorWithStatus:@"还没有登录"];
         LoginViewController *login=[[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:NO];
     }

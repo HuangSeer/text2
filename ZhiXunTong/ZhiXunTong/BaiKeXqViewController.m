@@ -28,6 +28,8 @@
     NSString *webUrls;
     NSString *comments;
     NSString *likeCount;
+    NSMutableArray *_NameArray;
+    NSMutableArray *_btnArray;
 }
 @property (strong, nonatomic) UIWebView *Webhome;
 @end
@@ -45,6 +47,8 @@
     arry=[userInfo objectForKey:@"Data"];
     aaid=[[arry objectAtIndex:0] objectForKey:@"id"];
     _timeArray=[NSMutableArray arrayWithCapacity:0];
+    _NameArray=[NSMutableArray arrayWithCapacity:0];
+    _btnArray=[NSMutableArray arrayWithCapacity:0];
     self.navigationItem.title=_mTitle;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"lanse.png"] forBarMetrics:UIBarMetricsDefault];
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -60,13 +64,13 @@
 }
 -(void)shuju{
     //http://192.168.1.222:8099/api/APP1.0.aspx?method=Article&TVInfoId=&Key=&Eid=&Uid
-    NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=PostDetails&TVInfoId=%@&Key=%@&Mid=%@&Uid=%@",URL,tvinfoId,key,_mid,aaid];
+    NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=Article&TVInfoId=%@&Key=%@&Eid=%@&Uid=%@",URL,tvinfoId,key,_mid,aaid];
     NSLog(@"%@",strurl);
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
         NSLog(@"data==%@",data);
         NSLog(@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"type"]);
         lable_name=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"type"]];
-        name=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"Name"]];
+        name=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"publisher"]];
         atime=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"time"]];
         comments=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"comments"]];
         likeCount=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"likeCount"]];
@@ -85,6 +89,8 @@
         aaView.backgroundColor=RGBColor(234, 234, 234);
         [self.view addSubview:aaView];
         
+        NSString *tzlike=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"Data"] objectAtIndex:0] objectForKey:@"Islike"]];
+        int pd=[tzlike intValue];
         for (int i=0; i<2; i++) {
            UIButton *Btn_shuang = [UIButton buttonWithType:UIButtonTypeCustom];
             Btn_shuang.frame = CGRectMake(0+(Screen_Width/2+2)*i, 40, Screen_Width/2-1, 40);
@@ -93,8 +99,15 @@
             [Btn_shuang setImage:[UIImage imageNamed:@"unchecked_checkbox@2x.png"] forState:UIControlStateNormal];
             //文字
             if (Btn_shuang.tag==50) {
-                [Btn_shuang setImage:[UIImage imageNamed:@"thumb_not.png"] forState:UIControlStateNormal];
-                [Btn_shuang setTitle:comments forState:UIControlStateNormal];
+                NSLog(@"pd=%d",pd);
+                if (pd==0) {
+                    [Btn_shuang setImage:[UIImage imageNamed:@"thumb_not.png"] forState:UIControlStateNormal];
+                    [Btn_shuang setTitle:comments forState:UIControlStateNormal];
+                }else{
+                    [Btn_shuang setImage:[UIImage imageNamed:@"thumb_ok.png"] forState:UIControlStateNormal];
+                    [Btn_shuang setTitle:comments forState:UIControlStateNormal];
+                }
+                
             }else if(Btn_shuang.tag==51){
                 [Btn_shuang setImage:[UIImage imageNamed:@"img_message.png"] forState:UIControlStateNormal];
                 [Btn_shuang setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -127,13 +140,17 @@
     }];
 }
 -(void)shujuTwo{
-    NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=atom&TVInfoId=%@&Key=%@&Mid=%@&Uid=%@",URL,tvinfoId,key,_mid,aaid];
+    NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=ArticleComments&TVInfoId=%@&Key=%@&Eid=%@&Uid=%@",URL,tvinfoId,key,_mid,aaid];
     NSLog(@"%@",strurl);
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
         NSLog(@"data==%@",data);
         _saveArray=[BaiKeXqModel mj_objectArrayWithKeyValuesArray:[data valueForKey:@"Data"]];
         for (int i=0; i<_saveArray.count; i++) {
             NSData *btime=[[[data objectForKey:@"Data"] objectAtIndex:i] objectForKey:@"time"];
+            NSString *bName=[[[data objectForKey:@"Data"] objectAtIndex:i] objectForKey:@"Name"];
+            NSString *bbtn=[[[data objectForKey:@"Data"] objectAtIndex:i] objectForKey:@"likeCount"];
+            [_btnArray addObject:bbtn];
+            [_NameArray addObject:bName];
             [_timeArray addObject:btime];
         }
         [_tableView reloadData];
@@ -157,13 +174,8 @@
 {
     if (sender.tag==50) {
         NSLog(@"111111");
-    }
-    else if (sender.tag==51){
-        NSLog(@"2222222");
-    }
-    else if(sender.tag==52){
-        NSLog(@"发表");
-        NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=PostComments&TVInfoId=%@&Key=%@&mid=%@&Uid=%@&Content=%@",URL,tvinfoId,key,_mid,aaid,textFaBiao.text];
+        
+        NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=ArticleThumb&TVInfoId=%@&Key=%@&Eid=%@&Uid=%@",URL,tvinfoId,key,_mid,aaid];
         NSLog(@"%@",strurl);
         [ZQLNetWork getWithUrlString:strurl success:^(id data) {
             NSLog(@"data==%@",data);
@@ -171,9 +183,39 @@
             int s;
             s=[ss intValue];
             if (s==1) {
+                [SVProgressHUD showSuccessWithStatus:@"点赞成功"];
+            }else if(s==0){
+                [SVProgressHUD showErrorWithStatus:@"点赞过了"];
+            }
+            
+            
+        } failure:^(NSError *error) {
+            NSLog(@"---------------%@",error);
+            [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        }];
+    }
+    else if (sender.tag==51){
+        NSLog(@"2222222");
+        [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]
+         
+                                    animated:YES
+         
+                              scrollPosition:UITableViewScrollPositionTop];
+    }
+    else if(sender.tag==52){
+        NSLog(@"发表");
+        NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=PostComments&TVInfoId=%@&Key=%@&mid=%@&Uid=%@&Content=%@",URL,tvinfoId,key,_mid,aaid,textFaBiao.text];
+        NSString *urzm=[strurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"%@",strurl);
+        [ZQLNetWork getWithUrlString:urzm success:^(id data) {
+            NSLog(@"data==%@",data);
+            NSString *ss=[data objectForKey:@"Status"];
+            int s;
+            s=[ss intValue];
+            if (s==1) {
                 [SVProgressHUD showSuccessWithStatus:@"发表成功"];
             }else{
-                [SVProgressHUD showErrorWithStatus:@"发表失败"];
+                [SVProgressHUD showErrorWithStatus:@"您评论过了"];
             }
             
             
@@ -271,7 +313,7 @@
         lable_name1.textAlignment=NSTextAlignmentCenter;
         [headView addSubview:lable_name1];
         
-        UILabel *lable_namebg=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 5, 30)];
+        UILabel *lable_namebg=[[UILabel alloc] initWithFrame:CGRectMake(0, 5, 5, 20)];
         lable_namebg.backgroundColor=RGBColor(69, 149, 19);
         
         [headView addSubview:lable_namebg];
@@ -314,7 +356,8 @@
         img.layer.cornerRadius=img.bounds.size.width*0.5;
         [cell.contentView addSubview:img];
         UILabel *lable_names=[[UILabel alloc] initWithFrame:CGRectMake(42, 0, 130, 13)];
-        lable_names.text=[NSString stringWithFormat:@"%@",model.Name];
+        NSLog(@"%@",model.content);
+        lable_names.text=[NSString stringWithFormat:@"%@",[_NameArray objectAtIndex:indexPath.row]];
         lable_names.textColor=[UIColor blueColor];
         lable_names.textAlignment=NSTextAlignmentCenter;
         lable_names.font=[UIFont systemFontOfSize:13];
@@ -329,6 +372,7 @@
         Btn_dian.backgroundColor =[UIColor clearColor];
         //图片
         int ab=[model.Islike intValue];
+        NSLog(@"%d",ab);
         if (ab==0) {
             [Btn_dian setImage:[UIImage imageNamed:@"thumb_not.png"] forState:UIControlStateNormal];
         }else{
@@ -336,7 +380,8 @@
         }
         
         //文字
-        [Btn_dian setTitle:[NSString stringWithFormat:@"%@",model.likeCount] forState:UIControlStateNormal];
+//        [Btn_dian setTitle:[NSString stringWithFormat:@"%@",model.likeCount] forState:UIControlStateNormal];
+        [Btn_dian setTitle:[NSString stringWithFormat:@"%@",[_btnArray objectAtIndex:indexPath.row]] forState:UIControlStateNormal];
         [Btn_dian setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         Btn_dian.titleLabel.font =[UIFont boldSystemFontOfSize:17];
         Btn_dian.tag=indexPath.row;
@@ -394,8 +439,28 @@
 }
 //点赞
 -(void)btn_dianZ:(UIButton *)sender{
-//    OrderModel *modle=ModelArray[sender.tag];
-//    ZFordid=modle.order_id;
+    BaiKeXqModel *model=[_saveArray objectAtIndex:sender.tag];
+    NSLog(@"评论点赞：%@",model.id);
+ //  /api/APP1.0.aspx?method=EThumb&TVInfoId=&Key=&Eid=&Uid=
+    NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=EThumb&TVInfoId=%@&Key=%@&Eid=%@&Uid=%@",URL,tvinfoId,key,model.id,aaid];
+//    NSString *urzm=[strurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@",strurl);
+    [ZQLNetWork getWithUrlString:strurl success:^(id data) {
+        NSLog(@"data==%@",data);
+        NSString *ss=[data objectForKey:@"Status"];
+        int s;
+        s=[ss intValue];
+        if (s==1) {
+            [SVProgressHUD showSuccessWithStatus:@"点赞成功"];
+        }else if(s==0){
+            [SVProgressHUD showErrorWithStatus:@"点赞过了"];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"---------------%@",error);
+        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+    }];
 }
 -(void)btnCkmore
 {

@@ -73,9 +73,6 @@
         
         if (x==0) {
             [self shbaike:@""];
-//            aNun=0;
-            //            self.currentPage=1;
-            //            [self SheQuShengHuo];
         }else{
 //            aNun=x-1;
             [self shbaike:[NSString stringWithFormat:@"%ld",x-1]];
@@ -149,6 +146,7 @@
     NSLog(@"选了了第%ld行",indexPath.row);
     SHBKModel *mode=[_saveArray objectAtIndex:indexPath.row];
     BaiKeXqViewController *BaiKeXq=[[BaiKeXqViewController alloc] init];
+    BaiKeXq.mTitle=@"生活百科";
     BaiKeXq.mid=mode.id;
     [self.navigationController pushViewController:BaiKeXq animated:NO];
 }

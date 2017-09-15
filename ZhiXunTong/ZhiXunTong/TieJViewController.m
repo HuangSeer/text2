@@ -35,12 +35,10 @@ TieJCollectionReusableView *headerView;
 @implementation TieJViewController
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=YES;
-    
+
     self.navigationController.navigationBarHidden=NO;//隐藏导航栏
 
-     self.navigationItem.title=@"特价商品";
-
-    
+    self.navigationItem.title=@"特价商品";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,7 +78,6 @@ TieJCollectionReusableView *headerView;
     
     //请求数据
     NSString *strurlfl=[NSString stringWithFormat:@"%@bargainGoods.htm?bg_time=%@&currentPage=%ld&pageSize=10",URLds,DateTime,_currentPage];
-    NSLog(@"%@",strurlfl);
     [ZQLNetWork getWithUrlString:strurlfl success:^(id data) {
         NSLog(@"sad===2==2=2=2========%@",data);
         NSString *msg=[data objectForKey:@"msg"];
@@ -100,7 +97,6 @@ TieJCollectionReusableView *headerView;
             NSArray *array = [strsa componentsSeparatedByString:@"."]; //从字符A中分隔成2个元素的数组
             NSString *xs=[NSString stringWithFormat:@"%@",array[0]];
             xsd=[xs intValue]+1;
-            NSLog(@"%d",xsd);
             views=[[UIView alloc]initWithFrame:CGRectMake(9,40, 2,210*xsd)];
             views.backgroundColor=RGBColor(96, 211, 120);
             [homec addSubview:views];
@@ -228,10 +224,8 @@ TieJCollectionReusableView *headerView;
             [self.navigationController pushViewController:SpXqVi animated:NO];
             self.navigationController.navigationBarHidden=NO;
             self.tabBarController.tabBar.hidden=YES;
-            //                [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
     }else{
         
@@ -263,10 +257,8 @@ TieJCollectionReusableView *headerView;
             [self.navigationController pushViewController:SpXqVi animated:NO];
             self.navigationController.navigationBarHidden=NO;
             self.tabBarController.tabBar.hidden=YES;
-            //                [SVProgressHUD showSuccessWithStatus:@"数据请求成功!"];
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
     }else{
         
@@ -286,14 +278,14 @@ TieJCollectionReusableView *headerView;
     self.currentPage=1;
     // 1.数据操作
     [self lodadate];
-    
+
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 刷新表格
-        [homec reloadData];
-        
-        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        [homec.mj_header endRefreshing];
+    // 刷新表格
+    [homec reloadData];
+
+    // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+    [homec.mj_header endRefreshing];
     });
 }
 
@@ -302,12 +294,12 @@ TieJCollectionReusableView *headerView;
     // 1.数据操作
     self.currentPage++;
     [self lodadate];
-    
+
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 刷新表格
-        [homec reloadData];
-        [homec.mj_footer endRefreshing];
+    // 刷新表格
+    [homec reloadData];
+    [homec.mj_footer endRefreshing];
     });
 }
 

@@ -74,7 +74,6 @@
         _igo_ship_time=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"data"] objectForKey:@"igo1"] objectForKey:@"igo_ship_time"]];
         _igo_pay_msg=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"data"] objectForKey:@"igo1"] objectForKey:@"igo_pay_msg"]];
         _path=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"data"] objectForKey:@"user"] objectForKey:@"path"]];
-        NSLog(@"%@==%@===%@",_dhxxArray,_dataArray);
         _userName=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"data"] objectForKey:@"user"] objectForKey:@"userName"]];
         _email=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"data"] objectForKey:@"user"] objectForKey:@"email"]];
         _trueName=[NSString stringWithFormat:@"%@",[[[data objectForKey:@"data"] objectForKey:@"address"] objectForKey:@"trueName"]];
@@ -87,7 +86,7 @@
         [tableViews reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
     
 }

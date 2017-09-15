@@ -67,7 +67,7 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 
     //上传图片提示
     addImageStrLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 50, 70, 20)];
-    addImageStrLabel.text = @"上传图片";
+//    addImageStrLabel.text = @"上传图片";
     addImageStrLabel.textColor = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0];
     [self.pickerCollectionView addSubview:addImageStrLabel];
 }

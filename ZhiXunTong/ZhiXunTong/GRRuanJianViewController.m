@@ -7,9 +7,10 @@
 //
 
 #import "GRRuanJianViewController.h"
+#import "YiJianViewController.h"
+#import "BangzhuViewController.h"
 
 @interface GRRuanJianViewController ()
-
 @end
 
 @implementation GRRuanJianViewController
@@ -25,18 +26,27 @@
     UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithCustomView:backItem];
     [self.navigationItem setLeftBarButtonItem:leftItemBar];
 }
-- (IBAction)butyijian:(UIButton *)sender {
-    NSLog(@"=================================");
-    
-}
-- (IBAction)butbangz:(UIButton *)sender {
-    NSLog(@"=================================");
-
-}
 -(void)btnCkmore
 {
     [self.navigationController popViewControllerAnimated:NO];
 }
+- (IBAction)butyijian:(UIButton *)sender {
+    NSLog(@"=================================");
+    BangzhuViewController *BangzhuV=[[BangzhuViewController alloc] init];
+    [self.navigationController pushViewController:BangzhuV animated:NO];
+    self.navigationController.navigationBarHidden=NO;
+    self.tabBarController.tabBar.hidden=YES;
+    
+}
+- (IBAction)butbangz:(UIButton *)sender {
+    NSLog(@"=================================");
+    YiJianViewController *YiJianV=[[YiJianViewController alloc] init];
+    [self.navigationController pushViewController:YiJianV animated:NO];
+    self.navigationController.navigationBarHidden=NO;
+    self.tabBarController.tabBar.hidden=YES;
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

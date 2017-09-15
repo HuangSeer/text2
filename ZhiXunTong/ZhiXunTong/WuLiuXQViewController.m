@@ -89,7 +89,7 @@
         [SVProgressHUD showSuccessWithStatus:@"加载成功"];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 

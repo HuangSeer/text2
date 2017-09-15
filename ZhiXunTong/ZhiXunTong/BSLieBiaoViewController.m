@@ -48,7 +48,7 @@
     labTitle.text=@"获取当前时间";
     [meView addSubview:labTitle];
     UIImageView *BtnImg=[[UIImageView alloc] initWithFrame:CGRectMake(Screen_Width-35, 10, 25, 25)];
-    BtnImg.image=[UIImage imageNamed:@"001.png"];
+    BtnImg.image=[UIImage imageNamed:@"2.png"];
     BtnImg.userInteractionEnabled=YES;
     UITapGestureRecognizer *tapRecognizerWeibo=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImgtime)];
     [BtnImg addGestureRecognizer:tapRecognizerWeibo];

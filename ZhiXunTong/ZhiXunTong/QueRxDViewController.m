@@ -24,11 +24,11 @@
 
 @interface QueRxDViewController ()<UITableViewDelegate, UITableViewDataSource>{
     UITableView *tableViews;
-    NSMutableArray *_dataArray;     
+    NSMutableArray *_dataArray;
     NSMutableDictionary *userinfo;
     NSString *cookiestr;
     NSUserDefaults *userDefaults;
-     NSInteger intro;
+    NSInteger intro;
     NSString *strdzid;
     UILabel *lab;
     UIView *viewd;
@@ -60,7 +60,7 @@
     float zj;
 }
 @property(nonatomic,strong)NSString  *order_id;
- @property (nonatomic, strong)UITextField *uitextbab;
+@property (nonatomic, strong)UITextField *uitextbab;
 @property (nonatomic, strong) NSString *fee_names;
 @property (nonatomic, strong) NSString *fee_prices;
 @end
@@ -69,13 +69,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.navigationItem.title=@"确认订单";
-
+    
     userDefaults= [NSUserDefaults standardUserDefaults];
     cookiestr=[userDefaults objectForKey:Cookiestr];
     zjArray=[NSMutableArray arrayWithCapacity:0];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentTextFieldDidEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentTextFieldDidEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
     [self initTableView];
     [self lodadate2];
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -108,7 +108,7 @@
     store_idArray=[NSMutableArray arrayWithCapacity:0];
     for (int i=0; i<_Cmodarry.count; i++) {
         NSString *strsp=[NSString stringWithFormat:@"%@",[[_Cmodarry objectAtIndex:i] objectForKey:@"store_name"] ];
-         NSString *store_id=[NSString stringWithFormat:@"%@",[[_Cmodarry objectAtIndex:i] objectForKey:@"store_id"] ];
+        NSString *store_id=[NSString stringWithFormat:@"%@",[[_Cmodarry objectAtIndex:i] objectForKey:@"store_id"] ];
         [store_idArray addObject:store_id];
         [touArray addObject:strsp];
         NSString *strzj=[NSString stringWithFormat:@"%@",[[_Cmodarry objectAtIndex:i] objectForKey:@"total_price"] ];
@@ -138,9 +138,9 @@
         [yfidArray addObject:stryf];
         [jiansArray addObject:strjs];
         [addmoArray addObject:strzj];
-     
+        
     }
-
+    
     for(int i=0;i<addmoArray.count;i++)
     {
         zj=[addmoArray[i] floatValue];
@@ -160,13 +160,13 @@
                 
                 [_dataArray addObject:arry[intro]];
             }else{
-                 intro=0;
+                intro=0;
                 _dataArray=[NSMutableArray arrayWithCapacity:0];
-               
+                
                 [_dataArray addObject:arry[intro]];
             }
-//
-//            [self countPrice];
+            //
+            //            [self countPrice];
             viewd =[[UIView alloc]initWithFrame:CGRectMake(0, Screen_height-110, Screen_Width,47)];
             
             lab =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, Screen_Width/1.5-10, 47)];
@@ -176,7 +176,7 @@
             NSRange redRangeTwo2 = NSMakeRange([[noteStr2 string] rangeOfString:[NSString stringWithFormat:@" ¥%.2f",zj]].location, [[noteStr2 string] rangeOfString:[NSString stringWithFormat:@" ¥%.2f",zj]].length);
             [noteStr2 addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:redRangeTwo2];
             [lab setAttributedText:noteStr2];
-         
+            
             [viewd addSubview:lab];
             UIButton *butdh=[[UIButton alloc]initWithFrame:CGRectMake(Screen_Width/1.5, 0, Screen_Width/3, 47)];
             [butdh setTitle:@"提交订单" forState:UIControlStateNormal];
@@ -189,10 +189,10 @@
             
             [tableViews reloadData];
         }else{
-    
-        
+            
+            
         }
-       
+        
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
         [SVProgressHUD showErrorWithStatus:@"失败!!"];
@@ -213,7 +213,7 @@
     [tableViews registerNib:[UINib nibWithNibName:NSStringFromClass([KaiJfpTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"fpcell"];
     [tableViews registerNib:[UINib nibWithNibName:NSStringFromClass([XdLiuTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"xdliucell"];
     [tableViews registerNib:[UINib nibWithNibName:NSStringFromClass([ZjTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"zjcell"];
-//    [tableViews registerNib:[UINib nibWithNibName:NSStringFromClass([DhJlTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"Onecell"];
+    //    [tableViews registerNib:[UINib nibWithNibName:NSStringFromClass([DhJlTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"Onecell"];
     tableViews.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.view addSubview:tableViews];
@@ -225,7 +225,7 @@
     if (section==0) {
         return nil;
     }else{
-      UIView *viewgg=[[UIView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, 45)];
+        UIView *viewgg=[[UIView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, 45)];
         viewgg.backgroundColor=[UIColor whiteColor];
         UIImageView *imgsptx=[[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 35, 35)];
         imgsptx.image=[UIImage imageNamed:@"默认图片"];
@@ -235,22 +235,22 @@
         labsp.font=[UIFont systemFontOfSize:15.0f];
         labsp.text=[NSString stringWithFormat:@"%@",touArray[section-1]];
         labsp.textAlignment = NSTextAlignmentLeft;
-         [viewgg addSubview:imgsptx];
+        [viewgg addSubview:imgsptx];
         [viewgg addSubview:labsp];
         return  viewgg;
-    
+        
     }
-
+    
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     if (section==0) {
-    
+        
         UIImageView *viewimg =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, 10)];
         viewimg.image=[UIImage imageNamed:@"分线"];
         return viewimg;
         
     }else{
-      
+        
         return nil;
         
     }
@@ -262,10 +262,10 @@
         return 10;
     }else
     {
-    
+        
         return 0;
     }
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -273,7 +273,7 @@
         return   0.00001;
     }else{
         
-       return   45;
+        return   45;
     }
     
 }
@@ -281,14 +281,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-        return touArray.count+1;
+    return touArray.count+1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
         return 1;
     }else{
-         ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:section-1] objectForKey:@"gcs"]];
+        ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:section-1] objectForKey:@"gcs"]];
         return ModelArray.count+5;
     }
     
@@ -298,43 +298,43 @@
     if (indexPath.section==0) {
         return 44;
     }else{
-          ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:indexPath.section-1] objectForKey:@"gcs"]];
+        ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:indexPath.section-1] objectForKey:@"gcs"]];
         if (indexPath.row<ModelArray.count) {
-        return  110;
+            return  110;
         }else{
             return 44;
         }
     }
-  
-  
+    
+    
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section==0) {
-            DiZhiModel *DiZhiMo=_dataArray[indexPath.row];
-            DdAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Onecell"];
-            cell.DiZhiM=_dataArray[indexPath.row];
-            strdzid=[NSString stringWithFormat:@"%@",DiZhiMo.id];
-       
-             return cell;
+        DiZhiModel *DiZhiMo=_dataArray[indexPath.row];
+        DdAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Onecell"];
+        cell.DiZhiM=_dataArray[indexPath.row];
+        strdzid=[NSString stringWithFormat:@"%@",DiZhiMo.id];
+        
+        return cell;
     } else{
-
-         ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:indexPath.section-1] objectForKey:@"gcs"]];
+        
+        ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:indexPath.section-1] objectForKey:@"gcs"]];
         if (indexPath.row==ModelArray.count) {
-           YunfeiTableViewCell *cellc= [tableView dequeueReusableCellWithIdentifier:@"yunfcell"];
-        
+            YunfeiTableViewCell *cellc= [tableView dequeueReusableCellWithIdentifier:@"yunfcell"];
+            
             cellc.labyf.text=[NSString stringWithFormat:@"%@",quzArray[indexPath.section-1]];
-        
+            
             return cellc;
         }else if (indexPath.row==ModelArray.count+1) {
             YhqTableViewCell *celld = [tableView dequeueReusableCellWithIdentifier:@"yhqcell"];
-             celld.labyhq.text=[NSString stringWithFormat:@"%@",yhqArray[indexPath.section-1]];
+            celld.labyhq.text=[NSString stringWithFormat:@"%@",yhqArray[indexPath.section-1]];
             return celld;
-        
+            
         }
         else if (indexPath.row==ModelArray.count+2) {
-           
+            
             KaiJfpTableViewCell *celle = [tableView dequeueReusableCellWithIdentifier:@"fpcell"];
             [celle.butgr setImage:[UIImage imageNamed:fapgrArray[indexPath.section-1]] forState:UIControlStateNormal];
             [celle.butgs setImage:[UIImage imageNamed:fapgsArray[indexPath.section-1]] forState:UIControlStateNormal];
@@ -343,15 +343,15 @@
                 stryhqdb=@"1";
                 strjiant=@"1";
                 rowio=[NSString stringWithFormat:@"%ld", indexPath.section];
-              [gonsArray replaceObjectAtIndex:indexPath.section-1 withObject:rowio];
-
+                [gonsArray replaceObjectAtIndex:indexPath.section-1 withObject:rowio];
+                
                 views= [[UIView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width,Screen_height)];
                 views.backgroundColor = [UIColor blackColor];
                 views.alpha=0.5;
                 UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
-
+                
                 [window addSubview:views];
-              
+                
                 allview= [[UIView alloc]initWithFrame:CGRectMake(0, Screen_height/3.5, Screen_Width,150)];
                 allview.backgroundColor=[UIColor whiteColor];
                 UILabel *labtb=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, 45)];
@@ -369,11 +369,11 @@
                 _uitextbab.layer.borderColor= RGBColor(238, 238, 238).CGColor;
                 _uitextbab.placeholder = @" 必填,公司发票必须填公司名称";
                 _uitextbab.layer.borderWidth= 1.0f;
-                 button=[[UIButton alloc]initWithFrame:CGRectMake(0, 110, Screen_Width, 40)];
+                button=[[UIButton alloc]initWithFrame:CGRectMake(0, 110, Screen_Width, 40)];
                 [button setBackgroundColor:[UIColor orangeColor]];
                 [button setTitle:@"确  认" forState:UIControlStateNormal];
                 [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                 [button addTarget:self action:@selector(buttonleClick) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(buttonleClick) forControlEvents:UIControlEventTouchUpInside];
                 [allview addSubview:button];
                 [allview addSubview:_uitextbab];
                 [window addSubview:allview];
@@ -383,13 +383,13 @@
                 [tableView reloadData];
             };
             celle.addToGerenBlock= ^(KaiJfpTableViewCell *cellgs) {
-
+                
                 stryhqdb=@"0";
                 rowio=@"0";
                 [gonsliuyanArray replaceObjectAtIndex:indexPath.section-1 withObject:@""];
                 [gonsArray replaceObjectAtIndex:indexPath.section-1 withObject:rowio];
                 [fapdbArray replaceObjectAtIndex:indexPath.section-1 withObject:stryhqdb];
-                 NSLog(@"2ba==%@",fapdbArray);
+                NSLog(@"2ba==%@",fapdbArray);
                 [fapgsArray replaceObjectAtIndex:indexPath.section-1 withObject:@"yy_select_disabled"];
                 [fapgrArray replaceObjectAtIndex:indexPath.section-1 withObject:@"yy_select_selected"];
                 [tableView reloadData];
@@ -398,7 +398,7 @@
             
         }  else if (indexPath.row==ModelArray.count+3) {
             
-              textfArray=[NSMutableArray arrayWithCapacity:0];
+            textfArray=[NSMutableArray arrayWithCapacity:0];
             XdLiuTableViewCell *cellf = [tableView dequeueReusableCellWithIdentifier:@"xdliucell"];
             cellf.contentTextField.text=liuyanArray[indexPath.section-1];
             
@@ -410,14 +410,14 @@
             NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"小计: %@",strjg]];
             NSRange redRangeTwo = NSMakeRange([[noteStr string] rangeOfString:[NSString stringWithFormat:@" %@",strjg]].location, [[noteStr string] rangeOfString:[NSString stringWithFormat:@" %@",strjg]].length);
             [noteStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:redRangeTwo];
-           [cellh.labprice setAttributedText:noteStr];
+            [cellh.labprice setAttributedText:noteStr];
             NSString *strjian=[NSString stringWithFormat:@" %@ ",jiansArray[indexPath.section-1]];
             NSMutableAttributedString *noteStr2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"共计 %@ 件",strjian]];
             NSRange redRangeTwo2 = NSMakeRange([[noteStr2 string] rangeOfString:[NSString stringWithFormat:@" %@ ",strjian]].location, [[noteStr2 string] rangeOfString:[NSString stringWithFormat:@" %@ ",strjian]].length);
             [noteStr2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:redRangeTwo2];
             
-           
-              [cellh.labcount setAttributedText:noteStr2];
+            
+            [cellh.labcount setAttributedText:noteStr2];
             return cellh;
             
         }else{
@@ -449,14 +449,14 @@
     }else{
         ModelArray=[QuerRSpModel mj_objectArrayWithKeyValuesArray:[[_Cmodarry objectAtIndex:indexPath.section-1] objectForKey:@"gcs"]];
         if (indexPath.row==ModelArray.count) {
-         
+            
             DiZhiModel *DiZhiMo=_dataArray[0];
             
             
             NSLog(@"%@================%@",_dataArray,DiZhiMo.areaId);
             NSString *strurlpl=[NSString stringWithFormat:@"%@ship_fee.htm?storeCart_id=%@&area_id=%@",URLds,yfidArray[indexPath.section-1],DiZhiMo.areaId];
             [ZQLNetWork getWithUrlString:strurlpl success:^(id data) {
-
+                
                 yflArray=[yfmodel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"data"]];
                 views= [[UIView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width,Screen_height)];
                 views.backgroundColor = [UIColor blackColor];
@@ -476,7 +476,7 @@
                 labtb.textAlignment = NSTextAlignmentCenter;
                 [allview addSubview:labtb];
                 [window addSubview:allview];
-             
+                
                 for (int i =0; i<yflArray.count;i++) {
                     int page=i/2;
                     int crp=i%2;
@@ -529,7 +529,7 @@
                     
                 }
                 [tableViews reloadData];
-        
+                
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
                 [SVProgressHUD showErrorWithStatus:@"失败!!"];
@@ -544,8 +544,8 @@
                 CouponVi.straarray=straArray;
                 //block回调
                 CouponVi.ceBackBlock = ^(NSString  *intrid,NSString *strbb,NSString *stra){
-//                    [straArray addObject:stra];
-                     [straArray replaceObjectAtIndex:sectionio withObject:stra];
+                    //                    [straArray addObject:stra];
+                    [straArray replaceObjectAtIndex:sectionio withObject:stra];
                     NSLog(@"%@",straArray);
                     stryhid=intrid;
                     stryhje=strbb;
@@ -583,24 +583,24 @@
                 self.tabBarController.tabBar.hidden=YES;
                 
             }else{
-            
-            [SVProgressHUD showErrorWithStatus:@"暂无优惠券!"];
-            }
-
+                
+                [SVProgressHUD showErrorWithStatus:@"暂无优惠券!"];
             }
             
+        }
+        
         
     }
- 
+    
 }
 -(void)butdhClick{
-   
+    
     
     BOOL isbool = [quzArray containsObject:@"请选择"];
     if (isbool==0) {
         NSString *strysfs;
         NSString *stryf;
-   
+        
         NSMutableArray *arry=[NSMutableArray arrayWithCapacity:0];
         NSString *strzjs=[NSString stringWithFormat:@"%2f",zj];
         NSMutableDictionary *dictionary = [[NSMutableDictionary
@@ -608,7 +608,7 @@
         [dictionary setValue:strdzid forKey:@"addr_id"];
         [dictionary setValue:strzjs forKey:@"total_price"];
         [dictionary setValue:_cart_session forKey:@"cart_session"];
-         [dictionary setValue:_goods_id forKey:@"goods_id"];
+        [dictionary setValue:_goods_id forKey:@"goods_id"];
         for (int i=0; i<touArray.count; i++) {
             NSArray *array = [quzArray[i] componentsSeparatedByString:@"  "]; //从字符A中分隔成2个元素的数组
             strysfs=[NSString stringWithFormat:@"%@",array[0]];
@@ -637,11 +637,11 @@
         NSString *jsonStr=[[[NSString
                              alloc]initWithData:data
                             encoding:NSUTF8StringEncoding]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *strurlpl=[NSString stringWithFormat:@"http://192.168.1.223:8081/shopping/api/confirm_order.htm?data=%@",jsonStr];
+        NSString *strurlpl=[NSString stringWithFormat:@"%@confirm_order.htm?data=%@",URLds,jsonStr];
         NSLog(@"%@",strurlpl);
         [ZQLNetWork getWithUrlString:strurlpl success:^(id data) {
-          _order_id=[NSString stringWithFormat:@"%@",[data objectForKey:@"order_id"]];
-           
+            _order_id=[NSString stringWithFormat:@"%@",[data objectForKey:@"order_id"]];
+            
             PayInfoViewController *PayInfoVi=[[PayInfoViewController alloc]init];
             
             PayInfoVi.TOId=_order_id;
@@ -674,26 +674,26 @@
     
     if (buttonClick.tag == 1) {
         
-      
+        
         yfmodel *yfmo=yflArray[0];
         _fee_names=[NSString stringWithFormat:@"%@",yfmo.fee_name];
         _fee_prices=[NSString stringWithFormat:@"%@",yfmo.fee_price];
         [views removeFromSuperview];
         [allview removeFromSuperview];
         [tableViews reloadData];
-   
+        
     }
     else if (buttonClick.tag == 2) {
         [views removeFromSuperview];
         [allview removeFromSuperview];
-         [quzArray replaceObjectAtIndex:sectionio withObject:stryfqz];
+        [quzArray replaceObjectAtIndex:sectionio withObject:stryfqz];
         float zjjian=[zjjiaArray[sectionio] floatValue]+[_fee_prices floatValue]-[stryhje floatValue];
         NSLog(@"%@===%d",zjjiaArray[sectionio],[stryhje intValue]);
         NSString *strzjia=[NSString stringWithFormat:@"%.2f",zjjian];
         
         [addmoArray replaceObjectAtIndex:sectionio withObject:strzjia];
         NSLog(@"%@",addmoArray);
-//        lab.text=nil;
+        //        lab.text=nil;
         //重新计算总价
         for(int i=0;i<addmoArray.count;i++)
         {
@@ -710,7 +710,7 @@
         NSRange redRangeTwo2 = NSMakeRange([[noteStr2 string] rangeOfString:[NSString stringWithFormat:@" ¥%.2f",zj]].location, [[noteStr2 string] rangeOfString:[NSString stringWithFormat:@" ¥%.2f",zj]].length);
         [noteStr2 addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:redRangeTwo2];
         [lab setAttributedText:noteStr2];
-
+        
         [tableViews reloadData];
     }
     
@@ -718,14 +718,14 @@
 #pragma mark - private method
 - (void)contentTextFieldDidEndEditing:(NSNotification *)noti
 {
-   
+    
     if (_uitextbab==noti.object) {
-         NSLog(@"%@",_uitextbab);
+        NSLog(@"%@",_uitextbab);
     }else{
-    CustomTextField *textField = noti.object;
-    strliuyan=textField.text;
-    [liuyanArray replaceObjectAtIndex:sectionio withObject:strliuyan];
-    [tableViews reloadData];
+        CustomTextField *textField = noti.object;
+        strliuyan=textField.text;
+        [liuyanArray replaceObjectAtIndex:sectionio withObject:strliuyan];
+        [tableViews reloadData];
     }
 }
 -(void)buttonleClick{
@@ -736,11 +736,11 @@
         [views removeFromSuperview];
         [allview removeFromSuperview];
     }else{
-     [SVProgressHUD showErrorWithStatus:@"开公司发票这是必填项！！"];
-    
+        [SVProgressHUD showErrorWithStatus:@"开公司发票这是必填项！！"];
+        
     }
     
-   
+    
 }
 - (void)handleClick:(UIButton *)btn{
     
@@ -748,13 +748,13 @@
     //选中变红色 其他按钮变为白色
     if (selectedBtn) {
         selectedBtn.backgroundColor = [UIColor whiteColor];
-         [selectedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [selectedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     selectedBtn = btn;
     [selectedBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     selectedBtn.backgroundColor = [UIColor orangeColor];
     yfmodel *yfmo=yflArray[selectedBtn.tag-1];
- 
+    
     _fee_names=[NSString stringWithFormat:@"%@",yfmo.fee_name];
     _fee_prices=[NSString stringWithFormat:@"%@",yfmo.fee_price];
     stryfqz=[NSString stringWithFormat:@"%@  %@",_fee_names,_fee_prices];

@@ -64,7 +64,6 @@
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        //[SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
     }];
 
     _Webhome = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 100)];
@@ -263,7 +262,7 @@
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 
 

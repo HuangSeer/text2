@@ -203,7 +203,7 @@ NSArray *titles=@[@"标        题:",@"事件类型 :",@"事件等级 :",@"事�
             
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+            [SVProgressHUD showErrorWithStatus:@"失败!!"];
         }];
         
     }else if(sender.tag==2){

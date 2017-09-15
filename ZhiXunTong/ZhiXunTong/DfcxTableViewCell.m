@@ -16,8 +16,8 @@
 }
 -(void)setDfcxM:(DfcxModel *)DfcxM{
     _DfcxM=DfcxM;
-    self.labtime.text=[NSString stringWithFormat:@"%@",DfcxM.time];
-    self.labpeice.text=[NSString stringWithFormat:@"%@",DfcxM.Payable];
+    self.labtime.text=[NSString stringWithFormat:@"时间:%@",DfcxM.time];
+    self.labpeice.text=[NSString stringWithFormat:@"费用:%@",DfcxM.Payable];
 
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

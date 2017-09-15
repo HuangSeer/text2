@@ -23,6 +23,15 @@
      _labscj.text=[NSString stringWithFormat:@"团购价:¥%@",PinPM.storePrice];
 
 }
+-(void)setSousuoM:(SousuoModel *)SousuoM{
+    _SousuoM=SousuoM;
+    [_imagetp sd_setImageWithURL:[NSURL URLWithString:SousuoM.img]placeholderImage:[UIImage imageNamed:@"默认图片"]];
+    _labbt.text=[NSString stringWithFormat:@"%@",SousuoM.goods_name];
+    _labyj.text=[NSString stringWithFormat:@"原价:¥%@",SousuoM.old_price];
+    _labscj.text=[NSString stringWithFormat:@"商城价:¥%@",SousuoM.goods_storePrice];
+
+
+}
 -(void)setTgMo:(TgModel *)TgMo{
     _TgMo=TgMo;
     [_imagetp sd_setImageWithURL:[NSURL URLWithString:TgMo.image]placeholderImage:[UIImage imageNamed:@"默认图片"]];

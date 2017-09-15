@@ -817,23 +817,19 @@ static PropertyViewController* instance;
     NSString *strurl=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=ModnewpostsType&TVInfoId=%@&Key=%@",URL,aatvinfo,aakey];
     NSLog(@"%@",strurl);
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
-//        NSLog(@"data==%@",data);
         NSArray *neiArray=[data objectForKey:@"Data"];
         for (int i=0; i<neiArray.count; i++) {
-            //            NSLog(@"%@",);
             [_titleArray addObject:[[neiArray objectAtIndex:i] valueForKey:@"type"]];
         }
         NSLog(@"titleArray=%@",_titleArray);
         if (_titleArray.count>0) {
             [self shbaike:@"0"];
             [cbhead setUpTitleArray:_titleArray titleColor:[UIColor blackColor] titleSelectedColor:RGBColor(65, 140, 12) titleFontSize:0];
-//            [cbhead setUpTitleArray:_titleArray titleColor:[UIColor blackColor] titleSelectedColor:RGBColor(65, 140, 12) titleFontSize:0];
-//            [homec reloadData];
             
         }
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 //生活百科
@@ -844,15 +840,11 @@ static PropertyViewController* instance;
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
         NSLog(@"%@",data);
         _saveArray=[SHBKModel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"Data"]];
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:1 inSection:3];
         NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:3];
         [homec reloadSections:indexSet];
-//        [homec reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-//        [homec reloadItemsAtIndexPaths:indexSet];
-//        [homec reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
-        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+        [SVProgressHUD showErrorWithStatus:@"失败!!"];
     }];
 }
 @end

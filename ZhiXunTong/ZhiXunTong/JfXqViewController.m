@@ -68,7 +68,7 @@
     [self lodadate];
     [self initTableView];
     [self initUI];
-    self.navigationItem.title=@"商品详情";
+    self.navigationItem.title=@"积分商品详情";
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     UIButton * backItem = [[UIButton alloc]initWithFrame:CGRectMake(0, 16, 10, 18)];
     [backItem setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
@@ -199,37 +199,20 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section==0) {
         return 1;
-    }else if (section==1){
-        return 1;
-    
-    }
-   else{
-        return 0;
-    
-    }
-    
-    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0) {
+
         return 110;
-    }else if (indexPath.section==1){
-        return 44;
-        
-    }else{
-        return 0;
-        
-    }
+  
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section==0) {
+  
         OneSpXqTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Onecell"];
         tableView.separatorStyle = NO;
 //        cell.labyj.text=[NSString stringWithFormat:@"原价¥%@", goods_price[0]];
@@ -237,49 +220,7 @@
         cell.labbt.text=[NSString stringWithFormat:@"%@", name];
         cell.labthree.text=[NSString stringWithFormat:@"快递:0.00                月销%@            %@", goods_salenum[0],area_name[0]];
         return cell;
-    }else if (indexPath.section==1){
-        _strnum=@"1";
-        static NSString *CellIdenti =@"Cellh";
-        //定义cell的复用性当处理大量数据时减少内存开销
-        UITableViewCell *cellsw = [tableView  dequeueReusableCellWithIdentifier:CellIdenti];
-        
-        if (cellsw ==nil)
-        {
-            cellsw = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:CellIdenti];
-        }
-        [cellsw setSelectionStyle:UITableViewCellSelectionStyleNone];
-        UILabel *labxz=[[UILabel alloc]initWithFrame:CGRectMake(8
-                                                                , 0, Screen_Width/3, 35)];
-        labxz.text=@"购买数量";
-        
-        labxz.textColor=RGBColor(64, 64, 64);
-        labxz.font=[UIFont systemFontOfSize:13.0f];
-        [cellsw addSubview:labxz];
-        
-        PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(Screen_Width/1.45, 2, Screen_Width/3.5, 31)];
-        // 开启抖动动画
-        numberButton.shakeAnimation = YES;
-        // 设置最小值
-        numberButton.minValue = 1;
-        // 设置最大值
-        numberButton.maxValue = 100;
-        // 设置输入框中的字体大小
-        numberButton.inputFieldFont = 16;
-        numberButton.increaseTitle = @"＋";
-        numberButton.decreaseTitle = @"－";
-        numberButton.delegate = self;
-        numberButton.backgroundColor=RGBColor(231, 231, 231) ;
-        numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
-            
-            NSLog(@"213213===%ld",num);
-            _strnum=[NSString stringWithFormat:@"%ld",num];
-        };
-        [cellsw.contentView addSubview:numberButton];
-        return cellsw;
-        
-    }else{
-        return nil;
-    }
+  
 }
 
 //购物车和客服的点击方法
@@ -332,11 +273,8 @@
              
              NSString  *strurlphone =[NSString stringWithFormat:@"%@integralExchange.htm?id=%@&count=%@",URLds,_intid,_strnum];
              [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
-             
-             NSLog(@"%@",data);
-             //  NSString *msg=[data objectForKey:@"msg"];
+    
              NSArray *array=[[data objectForKey:@"data"] objectForKey:@"igc"];
-             NSLog(@"==--%@",array);
              JfXDViewController *JfXDV=[[JfXDViewController alloc]init];
              JfXDV.Cmodelarry=array;
              JfXDV.strcook=[data objectForKey:@"integral_order_session"];
@@ -346,12 +284,11 @@
              
              } failure:^(NSError *error) {
              NSLog(@"---------------%@",error);
-             [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+             [SVProgressHUD showErrorWithStatus:@"失败!!"];
              }];
 
         } failure:^(NSError *error) {
             NSLog(@"---------------%@",error);
-            //                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
         }];
     }else{
         [SVProgressHUD showErrorWithStatus:@"还没有登录"];

@@ -44,7 +44,7 @@
     [_selectedArray removeAllObjects];
     [self loadData];
     self.navigationItem.title=@"购物车";
-   
+    
 }
 
 - (void)loadData {
@@ -74,9 +74,9 @@
                             [self setupCustomBottomView];
                         }
                     }else{
-                    
-                    [_myTableView reloadData];
-                    [self setupCustomBottomView];
+                        
+                        [_myTableView reloadData];
+                        [self setupCustomBottomView];
                     }
                     
                     
@@ -100,7 +100,7 @@
         
     }
     
-
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -125,10 +125,10 @@
     _isHasTabBarController = self.tabBarController?YES:NO;
     _isHasNavitationController = self.navigationController?YES:NO;
     sparray=[NSMutableArray arrayWithCapacity:0];
-     [self setupCartView];
-//      [self loadData];
-   
-  
+    [self setupCartView];
+    //      [self loadData];
+    
+    
 }
 -(void)btnCkmore
 {
@@ -177,7 +177,7 @@
 
 #pragma mark - 布局页面视图
 
-#pragma mark -- 自定义底部视图 
+#pragma mark -- 自定义底部视图
 - (void)setupCustomBottomView {
     
     UIView *backgroundView = [[UIView alloc]init];
@@ -225,7 +225,7 @@
     
     label.attributedText = [self LZSetString:@"¥0.00"];
     CGFloat maxWidth = LZSCREEN_WIDTH - selectAll.bounds.size.width - btn.bounds.size.width - 30;
-//    CGSize size = [label sizeThatFits:CGSizeMake(maxWidth, LZTabBarHeight)];
+    //    CGSize size = [label sizeThatFits:CGSizeMake(maxWidth, LZTabBarHeight)];
     label.frame = CGRectMake(selectAll.bounds.size.width + 20, 0, maxWidth - 10, LZTabBarHeight);
     self.totlePriceLabel = label;
 }
@@ -257,11 +257,11 @@
     [self.view addSubview:table];
     self.myTableView = table;
     
-//    if (_isHasTabBarController) {
-//        table.frame = CGRectMake(0, 0, LZSCREEN_WIDTH,self.view.frame.size.height-LZTabBarHeight);
-//    } else {
-        table.frame = CGRectMake(0, 0, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight);
-//    }
+    //    if (_isHasTabBarController) {
+    //        table.frame = CGRectMake(0, 0, LZSCREEN_WIDTH,self.view.frame.size.height-LZTabBarHeight);
+    //    } else {
+    table.frame = CGRectMake(0, 0, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight);
+    //    }
     
     [table registerClass:[LZTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"LZHeaderView"];
 }
@@ -299,11 +299,11 @@
             [self.selectedArray addObject:model];
             [self countPrice];
         }
-       
+        
         NSString *strurl=[NSString stringWithFormat:@"%@add_goods_count.htm?count=%@&cart_goods_id=%@&store_id=%@",URLds,strnumber,model.goodsID,shopModel.sID];
         [ZQLNetWork getWithUrlString:strurl success:^(id data) {
             NSLog(@"%@",data);
-        
+            
         } failure:^(NSError *error) {
         }];
     }];
@@ -312,8 +312,8 @@
         
         wsCell.lzNumber = number;
         model.count = number;
-       
-         NSString *strnumber=[NSString stringWithFormat:@"%ld",number];
+        
+        NSString *strnumber=[NSString stringWithFormat:@"%ld",number];
         [shopModel.goodsArray replaceObjectAtIndex:indexPath.row withObject:model];
         
         //判断已选择数组里有无该对象,有就删除  重新添加
@@ -322,15 +322,15 @@
             [self.selectedArray addObject:model];
             [self countPrice];
         }
-          NSLog(@"%@",shopModel.shopID);
-       
+        NSLog(@"%@",shopModel.shopID);
+        
         NSString *strurl=[NSString stringWithFormat:@"%@add_goods_count.htm?count=%@&cart_goods_id=%@&store_id=%@",URLds,strnumber,model.goodsID,shopModel.sID];
         [ZQLNetWork getWithUrlString:strurl success:^(id data) {
             NSLog(@"%@",data);
             
         } failure:^(NSError *error) {
         }];
-
+        
     }];
     
     [cell cellSelectedWithBlock:^(BOOL select) {
@@ -339,24 +339,24 @@
         if (select) {
             
             if (self.selectedArray.count==0) {
-            [sparray addObject:shopModel.shopID];
-                 NSLog(@"bb========%@",sparray);
+                [sparray addObject:shopModel.shopID];
+                NSLog(@"bb========%@",sparray);
             }
             
             [self.selectedArray addObject:model];
-
-          
+            
+            
         } else {
-    
+            
             
             if (self.selectedArray.count==1) {
-            
-                    
-                    [sparray removeObject:shopModel.shopID];
+                
+                
+                [sparray removeObject:shopModel.shopID];
                 NSLog(@"删除成功%@",sparray);
             }
             
-              [self.selectedArray removeObject:model];
+            [self.selectedArray removeObject:model];
         }
         
         [self verityAllSelectState];
@@ -376,9 +376,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     LZTableHeaderView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LZHeaderView"];
     LZShopModel *model = [self.dataArray objectAtIndex:section];
-
+    
     NSLog(@">>>>>>%d", model.select);
-  
+    
     view.title = model.shopName;
     
     view.select = model.select;
@@ -386,11 +386,11 @@
         model.select = select;
         
         if (select) {
-         
-                [sparray addObject:model.shopID];
-                 NSLog(@"bb========%@",sparray);
             
-           
+            [sparray addObject:model.shopID];
+            NSLog(@"bb========%@",sparray);
+            
+            
             for (LZGoodsModel *good in model.goodsArray) {
                 good.select = YES;
                 if (![self.selectedArray containsObject:good]) {
@@ -400,9 +400,9 @@
             }
             
         } else {
-                    [sparray removeObject:model.shopID];
-                    NSLog(@"删除成功%@",sparray);
-
+            [sparray removeObject:model.shopID];
+            NSLog(@"删除成功%@",sparray);
+            
             for (LZGoodsModel *good in model.goodsArray) {
                 good.select = NO;
                 if ([self.selectedArray containsObject:good]) {
@@ -413,7 +413,7 @@
         }
         
         [self verityAllSelectState];
-
+        
         [tableView reloadData];
         [self countPrice];
     };
@@ -450,7 +450,7 @@
                 [SVProgressHUD showSuccessWithStatus:msg];
             } failure:^(NSError *error) {
                 NSLog(@"---------------%@",error);
-                [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+                [SVProgressHUD showErrorWithStatus:@"失败!!"];
             }];
             
             if (shop.goodsArray.count == 0) {
@@ -476,7 +476,7 @@
             }
             
             if (count == 0) {
-           
+                
             }
             
             //如果删除的时候数据紊乱,可延迟0.5s刷新一下
@@ -490,7 +490,7 @@
         [alert addAction:cancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
-
+    
 }
 - (void)reloadTable {
     [self.myTableView reloadData];
@@ -519,19 +519,19 @@
         
         for (LZShopModel *shop in self.dataArray) {
             [sparray addObject:shop.shopID];
-             NSLog(@"add成功%@",sparray);
+            NSLog(@"add成功%@",sparray);
             shop.select = YES;
             for (LZGoodsModel *model in shop.goodsArray) {
                 model.select = YES;
                 [self.selectedArray addObject:model];
                 
             }
-                  NSLog(@"2-----2--2-2-2--2-2-2------2--2-------%@",shop.shopID);
+            NSLog(@"2-----2--2-2-2--2-2-2------2--2-------%@",shop.shopID);
         }
-  
+        
     } else {
         [sparray removeAllObjects];
-         NSLog(@"删除成功%@",sparray);
+        NSLog(@"删除成功%@",sparray);
         for (LZShopModel *shop in self.dataArray) {
             shop.select = NO;
         }
@@ -548,14 +548,14 @@
         LZGoodsModel *model;
         NSString *strstoreCart_id;
         NSMutableArray *goodsidarray=[NSMutableArray arrayWithCapacity:0];
-      for (model in self.selectedArray) {
-                [goodsidarray addObject:model.goodsID];
-    
-            }
+        for (model in self.selectedArray) {
+            [goodsidarray addObject:model.goodsID];
+            
+        }
         for (shopmodel in self.dataArray) {
-        
+            
             strstoreCart_id=[NSString stringWithFormat:@"%@",shopmodel.shopID];
-      
+            
         }
         NSString *string = [goodsidarray componentsJoinedByString:@","];
         NSString *strurljs=[NSString stringWithFormat:@"%@goods_balance.htm?goods_id=%@",URLds,string];
@@ -566,9 +566,9 @@
             NSString *msg=[data objectForKey:@"msg"];
             QueRxDViewController *QueRxDVi=[[QueRxDViewController alloc]init];
             QueRxDVi.Cmodarry=[data objectForKey:@"data"];
-             QueRxDVi.Cyhqarry=[data objectForKey:@"coupon"];
+            QueRxDVi.Cyhqarry=[data objectForKey:@"coupon"];
             QueRxDVi.cart_session=cart_session;
-             QueRxDVi.goods_id=string;
+            QueRxDVi.goods_id=string;
             [self.navigationController pushViewController:QueRxDVi animated:NO];
             self.navigationController.navigationBarHidden=NO;
             self.tabBarController.tabBar.hidden=YES;
@@ -621,13 +621,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

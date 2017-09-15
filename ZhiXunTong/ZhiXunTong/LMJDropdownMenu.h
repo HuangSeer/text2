@@ -20,6 +20,7 @@
 #import "ContentModel.h"
 #import "LecwModel.h"
 #import "NationModel.h"
+#import "BoModel.h"
 
 @class LMJDropdownMenu;
 
@@ -52,6 +53,7 @@
 @property (nonatomic,copy) SJtypeModel *SJtypeM;
 @property (nonatomic,copy) ContentModel *ContentM;
 @property (nonatomic,copy) NationModel *NationM;
+@property (nonatomic,copy) BoModel *BoM;
 @property (nonatomic,copy) LecwModel *LecwM;
 @property (nonatomic, assign) id <LMJDropdownMenuDelegate>delegate;
 

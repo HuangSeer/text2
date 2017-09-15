@@ -80,7 +80,6 @@
 {
     DangXiaoMode *model=[_saveArray objectAtIndex:indexPath.row];
     NSString *weburl=[NSString stringWithFormat:@"%@/api/Html/pion.html?method=school&id=%@",URL,model.id];
-    NSLog(@"weburl=%@",weburl);
     NSString *aa=stri;
     // NSString *aa=[NSString stringWithFormat:@"%@",mode.Title];
     webViewController *web=[[webViewController alloc] initWithCoderZW:weburl Title:aa];

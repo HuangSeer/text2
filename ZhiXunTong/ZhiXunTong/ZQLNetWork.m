@@ -45,7 +45,7 @@
         success(netDic);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
-//        [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
+
     }];
 //    [SVProgressHUD dismiss];
     [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
@@ -72,7 +72,6 @@
          
          success(netDic);
      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//         [SVProgressHUD showErrorWithStatus:@"数据请求失败!!"];
          failure(error);
      }];
 //    [SVProgressHUD dismiss];

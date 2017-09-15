@@ -17,6 +17,10 @@
    UITableView *_tableView;
     UIButton *button;
     NSMutableArray  *modeArray;
+    NSMutableDictionary *userinfo;
+    NSString *aakey;
+    NSString *aatvinfo;
+    NSString *Deptid;
 }
 @property(nonatomic,strong)UIButton *button;
 @end
@@ -26,6 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title=@"党员管理";
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    aatvinfo=[userDefaults objectForKey:TVInfoId];
+    aakey=[userDefaults objectForKey:Key];
+    Deptid=[userDefaults objectForKey:DeptId];
     //返回按钮
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"lanse.png"] forBarMetrics:UIBarMetricsDefault];
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -42,40 +51,18 @@
 
 
 - (void)initTableView {
-    NSMutableArray *dictArray = @[
-                                  @{
-                                      @"title" : @"中国共产党员义务与权力",
-                                      @"image" : @"天平.png",
-                                    @"id" : @"1"
-                                    
-                                      },
-                                  @{
-                                      @"title" : @"中国共产党发展党员工作细则",
-                                       @"image" : @"工作细则.png",
-                                       @"id" : @"2"
-                                      
-                                      },
-                                  @{
-                                      @"title" :@"党组织关系转接工作流程",
-                                      @"image" : @"流程.png",
-                                       @"id" : @"3"
-                                      
-                                      },
-                                  @{
-                                      @"title" : @"流动党员管理",
-                                       @"image" : @"流动人员.png",
-                                       @"id" : @"4"
-                                      
-                                      } ,
-                                  @{
-                                      @"title" : @"党员的收缴标准",
-                                       @"image" : @"缴费.png",
-                                       @"id" : @"5"
-                                      
-                                      } ];
-    modeArray=[ZIchaungModel mj_objectArrayWithKeyValuesArray:dictArray];
-                                  NSLog(@"%@",modeArray
-                                        );
+    NSString *strurlphone=[NSString stringWithFormat:@"%@/api/APP1.0.aspx?method=partytitle&TVInfoId=%@&key=%@&DeptId=%@",URL,aatvinfo,aakey,Deptid];
+    NSLog(@"%@",strurlphone);
+    [ZQLNetWork getWithUrlString:strurlphone success:^(id data) {
+     NSLog(@"%@",data);
+        modeArray=[ZIchaungModel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"Data"]];
+        NSLog(@"%@",modeArray);
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"---------------%@",error);
+    }];
+//
+    
     UIView *viewbut=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/6)];
 //    viewbut.backgroundColor=[UIColor redColor];
     [self.view addSubview:viewbut];
@@ -148,17 +135,21 @@
     //记住,这里不能写成"mapBtn.tag",这样你点击任何一个button,都只能获取到最后一个button的值,因为前边的按钮都被最后一个button给覆盖了
     DYziyemViewController *DYziyemV = [[DYziyemViewController alloc] init];
     if (sender.tag==1) {
-        DYziyemV.dystr=@"1";
-        [self.navigationController pushViewController:DYziyemV animated:YES];
-    }else if(sender.tag==2){
-        DYziyemV.dystr=@"2";
-        [self.navigationController pushViewController:DYziyemV animated:YES];
-        
-    }else{
         DYziyemV.dystr=@"3";
         [self.navigationController pushViewController:DYziyemV animated:YES];
+    }else if(sender.tag==2){
+        DYziyemV.dystr=@"1";
+        [self.navigationController pushViewController:DYziyemV animated:YES];
+        
+    }else if(sender.tag==3){
+        DYziyemV.dystr=@"4";
+        [self.navigationController pushViewController:DYziyemV animated:YES];
         
         
+    }else{
+        DYziyemV.dystr=@"2";
+        [self.navigationController pushViewController:DYziyemV animated:YES];
+    
     }
     NSLog(@"%ld",sender.tag);
 }

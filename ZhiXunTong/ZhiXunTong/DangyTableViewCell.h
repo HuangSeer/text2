@@ -10,7 +10,6 @@
 #import "ZIchaungModel.h"
 
 @interface DangyTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *imagdy;
 @property (weak, nonatomic) IBOutlet UILabel *labdy;
 @property (copy, nonatomic)ZIchaungModel *ZIchaungM;
 

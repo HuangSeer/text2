@@ -20,7 +20,7 @@
 -(void)setZIchaungM:(ZIchaungModel *)ZIchaungM{
     _ZIchaungM=ZIchaungM;
   
-    [ self.imagdy setImage:[UIImage imageNamed:ZIchaungM.image]];
+   
     self.labdy.text=[NSString stringWithFormat:@"%@",ZIchaungM.title];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

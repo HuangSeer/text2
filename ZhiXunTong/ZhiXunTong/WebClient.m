@@ -7,8 +7,8 @@
 //
 
 #import "WebClient.h"
-#define WebService @"http://oa.ybqtw.org.cn"
-//#define WebService @"http://192.168.1.222:8099"
+//#define WebService @"http://oa.ybqtw.org.cn"
+#define WebService @"http://192.168.1.222:8099"
 @implementation WebClient
 + (instancetype)sharedClient{
     static WebClient *_shareClient = nil;

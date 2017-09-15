@@ -42,6 +42,7 @@
 #import "ShengHuoViewController.h"//社区生活
 #import "BaiKeViewController.h"//生活百科
 #import "BaiKeXqViewController.h"//百科详情
+#import "ShenHuoXqViewController.h"//生活详情
 @interface HomeViewController ()<UIWebViewDelegate,SDCycleScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SGAdvertScrollViewDelegate>{
     NSArray *ClassArray;
     NSArray *classImageArray;
@@ -64,7 +65,7 @@
     UIButton * button;
     NSMutableDictionary *userInfo;
     int sh;
-     id<AnjubaoSDK> sdk;
+    id<AnjubaoSDK> sdk;
     NSMutableArray *sqshArray;
     NSString *aaid;
     NSArray *sqshArray2;
@@ -114,8 +115,8 @@ static HomeViewController* instance;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getAddress];
-     [self myCollect];
-    
+    [self myCollect];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     [[UIBarButtonItem appearance]setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
@@ -138,21 +139,21 @@ static HomeViewController* instance;
     appTypeValue = 2;
     //    serverAddress = [self.serverAddressPicker text];
     [self connectService];
-
-     NSLog(@"tit=%@",title);
+    
+    NSLog(@"tit=%@",title);
     if (!title) {
         button=[UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:title forState:UIControlStateNormal];
         [button addTarget:self action:@selector(showAllQuestions) forControlEvents:UIControlEventTouchUpInside];
         NSLog(@"titletitle%@",title);
-
+        
         __weak typeof(self) weakSelf = self;
         AddressViewController *address=[[AddressViewController alloc] init];
         address.addressBlock = ^(NSString *strAddress) {
             NSLog(@"strAddressstrAddress==%@",strAddress);
             [weakSelf getAddress];
             [button setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
-           // [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            // [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [weakSelf getone];
         };
         [self presentViewController:address animated:YES completion:nil];
@@ -161,11 +162,11 @@ static HomeViewController* instance;
         button=[UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:title forState:UIControlStateNormal];
         [button addTarget:self action:@selector(showAllQuestions) forControlEvents:UIControlEventTouchUpInside];
-    
+        
         [button setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
     }
-       //设置导航栏不透明
-   // self.navigationController.navigationBar.translucent = NO;
+    //设置导航栏不透明
+    // self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     ClassArray = @[@"政策信息",@"诉求提交",@"预约办事",@"办事指南",@"智能家居",@"故障报修",@"一键开门",@"全部分类"];
     classImageArray=@[@"001.png",@"002.png",@"003.png",@"004.png",@"005.png",@"006.png",@"007.png",@"008.png",];
@@ -177,15 +178,15 @@ static HomeViewController* instance;
     toutiaoArray=[NSMutableArray arrayWithCapacity:0];
     goodArray=[NSMutableArray arrayWithCapacity:0];
     self.navigationItem.titleView =button;
-   
+    
     if (title.length>0) {
         [self getone];
     }
-//    [self SheQuShengHuo];
+    //    [self SheQuShengHuo];
 }
 //轮播图请求
 -(void)getone{
-//    [SVProgressHUD showWithStatus:@"加载中"];
+    //    [SVProgressHUD showWithStatus:@"加载中"];
     [_lunBoArray removeAllObjects];
     [[WebClient sharedClient] getlod:tvinfoId Keys:key Deptid:deptid ResponseBlock:^(id  _Nullable responseObject,NSError * _Nonnull error){
         //NSLog(@"轮播图请求----------=%@",responseObject);
@@ -218,15 +219,15 @@ static HomeViewController* instance;
             }
             NSLog(@"_lunBoArray22=%@",_lunBoArray);
             [homec reloadData];
-           // if (_imageUrlArray.count>0 && dpNameArray>0) {
-                // [HUD hide:YES];
-                //[SVProgressHUD showSuccessWithStatus:@"数据加载成功"];
+            // if (_imageUrlArray.count>0 && dpNameArray>0) {
+            // [HUD hide:YES];
+            //[SVProgressHUD showSuccessWithStatus:@"数据加载成功"];
             
             //}
             _topPhotoBoworr.imageURLStringsGroup = _imageUrlArray;
             _topPhotoBoworr.titlesGroup =titleArray;
         }
-         [self getContent];
+        [self getContent];
         if (error!=nil) {
             NSLog(@"error:请求失败%@",error);
         }
@@ -238,8 +239,8 @@ static HomeViewController* instance;
     [toutiaoArray removeAllObjects];
     [[WebClient sharedClient] ChuiZhi:tvinfoId Keys:key Depid:deptid Pagsize:@"6" Status:@"3" Page:@"1" ResponseBlock:^(id resultObject, NSError *error) {
         lodArray=[[NSMutableArray alloc]initWithArray:[TouTiaoModel mj_objectArrayWithKeyValuesArray:[resultObject objectForKey:@"Data"]]];
-//        NSLog(@"data=%@",[resultObject objectForKey:@"Data"]);
-//        NSLog(@"lodArray=:%@",lodArray);
+        //        NSLog(@"data=%@",[resultObject objectForKey:@"Data"]);
+        //        NSLog(@"lodArray=:%@",lodArray);
         for (int i=0; i<lodArray.count; i++) {
             TouTiaoModel *mode=[lodArray objectAtIndex:i];
             [toutiaoArray addObject:mode.Title];
@@ -251,10 +252,10 @@ static HomeViewController* instance;
         wodeArray=[[NSMutableArray alloc]initWithArray:[lunBoModel mj_objectArrayWithKeyValuesArray:[resultObject objectForKey:@"Data"]]];
         for (int i=0; i<wodeArray.count; i++) {
             lunBoModel *model=[wodeArray objectAtIndex:i];
-           // NSLog(@"轮播二：%@",model.Title);
+            // NSLog(@"轮播二：%@",model.Title);
             [goodArray addObject:model.Title];
         }
-       // NSLog(@"%ld",wodeArray.count);
+        // NSLog(@"%ld",wodeArray.count);
         _sgad.titleArray=toutiaoArray;
         [homec reloadData];
         [self SheQuShengHuo];
@@ -288,7 +289,7 @@ static HomeViewController* instance;
     [ZQLNetWork getWithUrlString:strurl success:^(id data) {
         NSLog(@"%@",data);
         shbaikeArray=[SHBKModel mj_objectArrayWithKeyValuesArray:[data objectForKey:@"Data"]];
-//        sqshArray2=[[data objectForKey:@"Data"] valueForKey:@"title"];
+        //        sqshArray2=[[data objectForKey:@"Data"] valueForKey:@"title"];
         [homec reloadData];
     } failure:^(NSError *error) {
         NSLog(@"---------------%@",error);
@@ -368,14 +369,14 @@ static HomeViewController* instance;
         cell.addrelabel.text=[NSString stringWithFormat:@"%@  %@",mode.type,mode.time];
         cell.addrelabel.textColor=[UIColor grayColor];
         cell.addrelabel.font=[UIFont systemFontOfSize:13];
-//        cell.timlabel.text=mode.EditDate;
-//        cell.timlabel.textColor=[UIColor grayColor];
-//        cell.timlabel.font=[UIFont systemFontOfSize:13];
+        //        cell.timlabel.text=mode.EditDate;
+        //        cell.timlabel.textColor=[UIColor grayColor];
+        //        cell.timlabel.font=[UIFont systemFontOfSize:13];
         cell.topImage.frame=CGRectMake(Screen_Width-90, 5, 70, 70);
         [cell.topImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URL,mode.url]] placeholderImage:[UIImage imageNamed:@"默认图片"]];
         cell.cellXian.frame=CGRectMake(10, cell.frame.size.height, Screen_Width-20, 0.5);
         
-//        cell.backgroundColor=RGBColor(236, 236, 236);
+        //        cell.backgroundColor=RGBColor(236, 236, 236);
         return cell;
     }
     else if(indexPath.section==2)
@@ -492,13 +493,13 @@ static HomeViewController* instance;
             }
             headerView.backgroundColor = [UIColor whiteColor];
             return headerView;
-
+            
         }
         else if (indexPath.section==1)
         {
             ErCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"dierView" forIndexPath:indexPath];
             headerView.backgroundColor = [UIColor whiteColor];
-//            headerView.erLable.frame=CGRectMake(10, 0, 80, 29);
+            //            headerView.erLable.frame=CGRectMake(10, 0, 80, 29);
             headerView.erLable.font=[UIFont systemFontOfSize:15];
             headerView.erLable.textColor=RGBColor(65, 140, 12);
             headerView.erLable.text=@"社区生活";
@@ -516,13 +517,13 @@ static HomeViewController* instance;
             aa.backgroundColor=RGBColor(65, 140, 12);
             [headerView addSubview:aa];
             return headerView;
-
+            
         }
         else if(indexPath.section==2)
         {
             YiCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"diyiView" forIndexPath:indexPath];
             headerView.backgroundColor = [UIColor whiteColor];
-//            headerView.yiLable.frame=CGRectMake(10, 0, 80, 29);
+            //            headerView.yiLable.frame=CGRectMake(10, 0, 80, 29);
             headerView.yiLable.font=[UIFont systemFontOfSize:15];
             headerView.yiLable.textColor=RGBColor(65, 140, 12);
             headerView.yiLable.text=@"生活百科";
@@ -532,7 +533,7 @@ static HomeViewController* instance;
             headerView.yiButton.frame=CGRectMake(Screen_Width-80, 0, 80, 30);
             headerView.yiButton.tag=3001;
             [headerView.yiButton addTarget:self action:@selector(hmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//            headerView.xianView.frame=CGRectMake(10, 29, Screen_Width-20, 1);
+            //            headerView.xianView.frame=CGRectMake(10, 29, Screen_Width-20, 1);
             headerView.backgroundColor = [UIColor clearColor];
             headerView.xianView.hidden=YES;
             
@@ -640,7 +641,7 @@ static HomeViewController* instance;
                     [self.navigationController pushViewController:desire animated:NO];
                     self.tabBarController.tabBar.hidden=YES;
                 }else{
-                     [SVProgressHUD showErrorWithStatus:@"您没有绑定小区"];
+                    [SVProgressHUD showErrorWithStatus:@"您没有绑定小区"];
                 }
             }else
             {
@@ -660,13 +661,13 @@ static HomeViewController* instance;
                     [self.navigationController pushViewController:open animated:NO];
                     self.navigationController.navigationBarHidden=NO;
                     self.tabBarController.tabBar.hidden=YES;
-                   // [SVProgressHUD showErrorWithStatus:@"该小区尚未开通"];
+                    // [SVProgressHUD showErrorWithStatus:@"该小区尚未开通"];
                 }else
                 {
                     [SVProgressHUD showErrorWithStatus:@"您没有绑定小区"];
                 }
-//                DesireViewController *desire=[[DesireViewController alloc] init];
-//                [self.navigationController pushViewController:desire animated:NO];
+                //                DesireViewController *desire=[[DesireViewController alloc] init];
+                //                [self.navigationController pushViewController:desire animated:NO];
             }else{
                 LoginViewController *login=[[LoginViewController alloc] init];
                 [self.navigationController pushViewController:login animated:NO];
@@ -685,12 +686,12 @@ static HomeViewController* instance;
     {
         NSLog(@"社区生活%ld--------%ld",indexPath.section,indexPath.item);
         TouTiaoModel *mode=[sqshArray objectAtIndex:indexPath.item];
-        BaiKeXqViewController *BaiKeXq=[[BaiKeXqViewController alloc] init];
+        ShenHuoXqViewController *BaiKeXq=[[ShenHuoXqViewController alloc] init];
         BaiKeXq.mid=mode.id;
         BaiKeXq.mTitle=@"社会生活";
         [self.navigationController pushViewController:BaiKeXq animated:NO];
         self.tabBarController.tabBar.hidden=YES;
-
+        
     }
     else if(indexPath.section==2)
     {
@@ -716,7 +717,7 @@ static HomeViewController* instance;
     webViewController *web=[[webViewController alloc] initWithCoderZW:weburl Title:aa];
     [self.navigationController pushViewController:web animated:NO];
     self.tabBarController.tabBar.hidden=YES;
-
+    
 }
 
 //第一个滚动视图
@@ -741,30 +742,30 @@ static HomeViewController* instance;
     NSString *pp=[[_lunBoArray objectAtIndex:index] objectForKey:@"NewsId"];
     NSString *gg=[[_lunBoArray objectAtIndex:index] objectForKey:@"Id"];
     erLunBoModel *mode= [ad_lunBoArrayad objectAtIndex:0];
-        if (mode.ad.count>index) {
-            NSString *webu=[NSString stringWithFormat:@"%@/api/Html/pion.html?method=recommended&Tvinfoid=%@&Key=%@&DeptId=%@&id=%@",URL,tvinfoId,key,deptid,gg];
-            NSString *aa=[NSString stringWithFormat:@"%@",[titleArray objectAtIndex:index]];
-            
-            webViewController *web=[[webViewController alloc] initWithCoderZW:webu Title:aa];
-            [self.navigationController pushViewController:web animated:NO];
-            self.tabBarController.tabBar.hidden=YES;
-        }
-        else {
-            NSString *webu=[NSString stringWithFormat:@"%@/api/Html/news_show.html?method=home&Tvinfoid=%@&Key=%@&DeptId=%@&id=%@",URL,tvinfoId,key,deptid,pp];
-            NSString *aa=[NSString stringWithFormat:@"%@",[titleArray objectAtIndex:index]];
-            
-            webViewController *web=[[webViewController alloc] initWithCoderZW:webu Title:aa];
-            [self.navigationController pushViewController:web animated:NO];
-            self.tabBarController.tabBar.hidden=YES;
-        }
+    if (mode.ad.count>index) {
+        NSString *webu=[NSString stringWithFormat:@"%@/api/Html/pion.html?method=recommended&Tvinfoid=%@&Key=%@&DeptId=%@&id=%@",URL,tvinfoId,key,deptid,gg];
+        NSString *aa=[NSString stringWithFormat:@"%@",[titleArray objectAtIndex:index]];
+        
+        webViewController *web=[[webViewController alloc] initWithCoderZW:webu Title:aa];
+        [self.navigationController pushViewController:web animated:NO];
+        self.tabBarController.tabBar.hidden=YES;
+    }
+    else {
+        NSString *webu=[NSString stringWithFormat:@"%@/api/Html/news_show.html?method=home&Tvinfoid=%@&Key=%@&DeptId=%@&id=%@",URL,tvinfoId,key,deptid,pp];
+        NSString *aa=[NSString stringWithFormat:@"%@",[titleArray objectAtIndex:index]];
+        
+        webViewController *web=[[webViewController alloc] initWithCoderZW:webu Title:aa];
+        [self.navigationController pushViewController:web animated:NO];
+        self.tabBarController.tabBar.hidden=YES;
+    }
 }
 -(void)showAllQuestions{
     __weak typeof(self) weakSelf = self;
     AddressViewController *address=[[AddressViewController alloc] init];
     address.addressBlock = ^(NSString *strAddress) {
-           NSLog(@"strAddressstrAddress==%@",strAddress);
+        NSLog(@"strAddressstrAddress==%@",strAddress);
         [weakSelf getAddress];
-         [button setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
+        [button setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
         //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [weakSelf getone];
         [weakSelf getContent];
@@ -782,12 +783,12 @@ static HomeViewController* instance;
     }
     else if (btn.tag==3001)
     {
-      NSLog(@"3001 生活百科");
+        NSLog(@"3001 生活百科");
         BaiKeViewController *BaiKe=[[BaiKeViewController alloc] init];
         [self.navigationController pushViewController:BaiKe animated:NO];
         self.tabBarController.tabBar.hidden=YES;
     }
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

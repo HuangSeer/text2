@@ -26,10 +26,6 @@
     [super viewDidLoad];
     [self initTableView];
     kbarray=[NSMutableArray arrayWithCapacity:0];
-//    _straarray=[NSMutableArray arrayWithCapacity:0];
-    
-    NSLog(@"%@",_Cyhqtwoarry);
-
     self.navigationItem.title=@"我的优惠券";
 
     _YdhArray=[YHqModel mj_objectArrayWithKeyValuesArray:_Cyhqtwoarry];
@@ -78,20 +74,8 @@
    
     
     BOOL isbool = [_straarray containsObject: str];
-    
-//    if () {
-//        cell.imgxgt.image=[UIImage imageNamed:@"q副本"];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        
-//    }else{
-//        NSString *strbb=[NSString stringWithFormat:@"%ld",indexPath.row];
-//        [kbarray addObject:strbb];
-//    }
-// 
     int a=[YHqM.coupon_order_amount intValue];
     int b=[_strprice intValue];
-
-    
     if (isbool==1 || a>b ) {
         
         if (isbool==1){
@@ -118,8 +102,6 @@
     
     YHqModel *YHqM=_YdhArray[indexPath.row];
     NSString *straa=[NSString stringWithFormat:@"%ld",indexPath.row];
-//    [straarray addObject:straa];
-    NSLog(@"==22%@",_straarray);
     BOOL isbool = [kbarray containsObject:straa];
     if (isbool==1) {
         self.ceBackBlock(YHqM.coupon_id,YHqM.coupon_amount,straa); //1
@@ -128,21 +110,5 @@
  
     
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

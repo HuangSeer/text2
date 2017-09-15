@@ -29,12 +29,13 @@
 #import "WXApiManager.h"
 #import <AlipaySDK/AlipaySDK.h>
 //#define APP_KEY @"3438021574"
-
-
+#import "JPUSHService.h"
+#import <AdSupport/AdSupport.h>
+#import <UserNotifications/UserNotifications.h>
 
 #define IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? YES : NO)
 #define RGB(r,g,b,a)  [UIColor colorWithRed:(double)r/255.0f green:(double)g/255.0f blue:(double)b/255.0f alpha:a]
-@interface AppDelegate ()
+@interface AppDelegate ()<JPUSHRegisterDelegate>
 
 @end
 
@@ -45,6 +46,36 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    //启动推送
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        // 可以添加自定义categories
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+            NSSet<UNNotificationCategory *> *categories;
+            entity.categories = categories;
+        }
+        else {
+            NSSet<UIUserNotificationCategory *> *categories;
+            entity.categories = categories;
+        }
+    }
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    
+    
+    
+    [JPUSHService setupWithOption:launchOptions appKey:jpappKey
+                          channel:nil
+                 apsForProduction:FALSE
+            advertisingIdentifier:nil];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self
+                      selector:@selector(networkDidReceiveMessage:)
+                          name:kJPFNetworkDidReceiveMessageNotification
+                        object:nil];
+    //
+    
     //[NSThread sleepForTimeInterval:3.0];//延长3秒
     //向微信注册wxc8d15ce0ff778ede
     [WXApi registerApp:@"wxd5e092991617315c"];
@@ -96,19 +127,45 @@
                  break;
          }
      }];
+    
     [[UITextField appearance] setTintColor:[UIColor grayColor]];//设置所有文本框光标颜色
     self.tab=[[GPTabBarViewController alloc] initWithNibName:nil bundle:nil];
     if(!IOS7){
         [self.tab.tabBar setTintColor:[UIColor whiteColor]];
     }
     [self.tab setViewControllers:[self initializeViewControllers]];
-    //[self.tab setSelectedIndex:2];
     
     [self.window setRootViewController:self.tab];
-    
+    // 设置应用程序的角标
+    //[UIApplication sharedApplication].applicationIconBadgeNumber = 1;
     [self.window makeKeyAndVisible];
     return YES;
 }
+-(void)networkDidReceiveMessage:(NSNotification *)notification
+{
+    NSLog(@"notification----%@",notification);
+}
+
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    /// Required - 注册 DeviceToken
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+    if (application.applicationState == UIApplicationStateActive) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"推送消息"
+                                                            message:alert
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+    [application setApplicationIconBadgeNumber:0];
+    [JPUSHService handleRemoteNotification:userInfo];
+}
+
 //高德地图
 - (void)configureAPIKey
 {
@@ -247,7 +304,9 @@
             unSelectedImage = [unSelectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             [tabbarItem setSelectedImage:selectedImage];
             [tabbarItem setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unSelectedImage];
-            
+            if (i==4) {
+                [tabbarItem setBadgeValue:@"1"];
+            }
             if(IOS7){
                 [tabbarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:RGB(65, 141, 42, 1),NSForegroundColorAttributeName, nil] forState:UIControlStateHighlighted];
             }else{
@@ -280,6 +339,11 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
+    [JPUSHService setBadge:0];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

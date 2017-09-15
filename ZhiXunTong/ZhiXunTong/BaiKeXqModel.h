@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface BaiKeXqModel : NSObject
-
 @property (nonatomic,strong)NSString *Head_portrait;
 @property (nonatomic,strong)NSString *Islike;
 @property (nonatomic,assign)NSString *Name;

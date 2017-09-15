@@ -52,10 +52,10 @@
     [self.navigationItem setLeftBarButtonItem:leftItemBar];
 
     
-    UILabel *aa=[[UILabel alloc] initWithFrame:CGRectMake(40, 50, Screen_Width-80, 35)];
+    UILabel *aa=[[UILabel alloc] initWithFrame:CGRectMake(40, 10, Screen_Width-80, 35)];
     aa.text=@"您当前绑定的手机号码是：";
     
-    UILabel *bb=[[UILabel alloc] initWithFrame:CGRectMake(40, 70, Screen_Width-80, 35)];
+    UILabel *bb=[[UILabel alloc] initWithFrame:CGRectMake(40, 30, Screen_Width-80, 35)];
     bb.text=[NSString stringWithFormat:@"%@",useriphone];
     bb.textColor=[UIColor blackColor];
     bb.font=[UIFont systemFontOfSize:13];
@@ -63,17 +63,17 @@
     [self.view addSubview:aa];
     [self.view addSubview:bb];
     
-    UILabel *cc=[[UILabel alloc] initWithFrame:CGRectMake(40, 110, Screen_Width-80, 35)];
+    UILabel *cc=[[UILabel alloc] initWithFrame:CGRectMake(40, 70, Screen_Width-80, 35)];
     cc.text=@"登录密码:";
     [self.view addSubview:cc];
     
-    textpass=[[UITextField alloc] initWithFrame:CGRectMake(40, 150, Screen_Width-80, 35)];
+    textpass=[[UITextField alloc] initWithFrame:CGRectMake(40, 110, Screen_Width-80, 35)];
     textpass.textAlignment = NSTextAlignmentLeft;
      textpass.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:textpass];
     
     UIButton *zhuce = [UIButton buttonWithType:UIButtonTypeCustom];
-    zhuce.frame = CGRectMake(Screen_Width/2-70, 240, 140, 35);
+    zhuce.frame = CGRectMake(Screen_Width/2-70, 155, 140, 35);
     zhuce.backgroundColor = [UIColor blueColor];
     [zhuce setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     zhuce.titleLabel.font=[UIFont systemFontOfSize:17];

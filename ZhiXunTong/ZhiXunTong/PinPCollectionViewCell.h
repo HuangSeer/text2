@@ -10,6 +10,7 @@
 #import "PinPModel.h"
 #import "TgModel.h"
 #import "TieJModel.h"
+#import "SousuoModel.h"
 
 @interface PinPCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imagetp;
@@ -19,6 +20,7 @@
 @property (copy, nonatomic)  PinPModel *PinPM;
 @property (copy, nonatomic)  TgModel *TgMo;
 @property (copy, nonatomic)  TieJModel *TieJMo;
+@property (copy, nonatomic)  SousuoModel *SousuoM;
 //声明一个名为 AddToCartsBlock  无返回值，参数为PinPCollectionViewCell 类型的block
 typedef void (^AddToCartsBlock) (PinPCollectionViewCell *);
 @property(nonatomic, copy) AddToCartsBlock addToCartsBlock;
