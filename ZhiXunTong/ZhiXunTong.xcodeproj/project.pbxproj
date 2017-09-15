@@ -85,6 +85,7 @@
 		0470B6DD1F57AB2000C6A31A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0470B6DC1F57AB2000C6A31A /* CoreMotion.framework */; };
 		0470B6DF1F57AB2C00C6A31A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0470B6DE1F57AB2C00C6A31A /* CFNetwork.framework */; };
 		0470B6FC1F57B32800C6A31A /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0470B6FA1F57B32800C6A31A /* AlipaySDK.bundle */; };
+		047C264D1F6BD91300E9F6BC /* sdfjhsjkbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047C264C1F6BD91300E9F6BC /* sdfjhsjkbViewController.m */; };
 		04956A7D1F21A071005B4831 /* PhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04956A731F21A071005B4831 /* PhotoView.m */; };
 		04956A7E1F21A071005B4831 /* WGHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04956A751F21A071005B4831 /* WGHomeViewController.m */; };
 		04956A7F1F21A071005B4831 /* WGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04956A771F21A071005B4831 /* WGLoginViewController.m */; };
@@ -791,6 +792,8 @@
 		0470B6DC1F57AB2000C6A31A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		0470B6DE1F57AB2C00C6A31A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0470B6FA1F57B32800C6A31A /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		047C264B1F6BD91300E9F6BC /* sdfjhsjkbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdfjhsjkbViewController.h; sourceTree = "<group>"; };
+		047C264C1F6BD91300E9F6BC /* sdfjhsjkbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sdfjhsjkbViewController.m; sourceTree = "<group>"; };
 		04956A721F21A071005B4831 /* PhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoView.h; sourceTree = "<group>"; };
 		04956A731F21A071005B4831 /* PhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoView.m; sourceTree = "<group>"; };
 		04956A741F21A071005B4831 /* WGHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGHomeViewController.h; sourceTree = "<group>"; };
@@ -2169,6 +2172,8 @@
 				452DF0BE1F417D48002FBC6F /* DianShangViewController.m */,
 				042913501F6BCF98006EF291 /* appppppppViewController.h */,
 				042913511F6BCF98006EF291 /* appppppppViewController.m */,
+				047C264B1F6BD91300E9F6BC /* sdfjhsjkbViewController.h */,
+				047C264C1F6BD91300E9F6BC /* sdfjhsjkbViewController.m */,
 			);
 			name = "电商模块";
 			sourceTree = "<group>";
@@ -4578,6 +4583,7 @@
 				452DF1791F418054002FBC6F /* FuCell.m in Sources */,
 				45DD96541F1F2BEA00057544 /* SGQRCodeGenerateManager.m in Sources */,
 				45FA86AA1F0C74EF0090CCB4 /* RBCustomDatePickerView.m in Sources */,
+				047C264D1F6BD91300E9F6BC /* sdfjhsjkbViewController.m in Sources */,
 				45A6F1F21EEA3354001E5AAF /* zhuceViewController.m in Sources */,
 				453CF5C91F289BA5003F4B08 /* ZhiNengViewController.m in Sources */,
 				452DF1781F418054002FBC6F /* DianShangModel.m in Sources */,
