@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0416A2741F668EA800086682 /* YiJianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416A2731F668EA800086682 /* YiJianViewController.m */; };
 		0416A2771F6785B900086682 /* BangzhuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416A2761F6785B900086682 /* BangzhuViewController.m */; };
-		042913521F6BCF98006EF291 /* appppppppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042913511F6BCF98006EF291 /* appppppppViewController.m */; };
 		042FA7D61F4188C400F06E13 /* AddbgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042FA7D11F4188C400F06E13 /* AddbgTableViewCell.m */; };
 		042FA7D71F4188C400F06E13 /* AddbgTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042FA7D21F4188C400F06E13 /* AddbgTableViewCell.xib */; };
 		042FA7D81F4188C400F06E13 /* SheZTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042FA7D41F4188C400F06E13 /* SheZTableViewCell.m */; };
@@ -113,6 +112,7 @@
 		04956ABE1F21A1A9005B4831 /* SjDjModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04956AB41F21A1A9005B4831 /* SjDjModel.m */; };
 		04956ABF1F21A1A9005B4831 /* SjLyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04956AB61F21A1A9005B4831 /* SjLyModel.m */; };
 		04956AC01F21A1A9005B4831 /* WgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04956AB81F21A1A9005B4831 /* WgModel.m */; };
+		04A5CD871F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A5CD861F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.m */; };
 		04BB1A4B1F5E829500265141 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB1A4A1F5E829500265141 /* SearchViewController.m */; };
 		04BB1A4F1F5E830700265141 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB1A4D1F5E830700265141 /* SearchTableViewCell.m */; };
 		04BB1A501F5E830700265141 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB1A4E1F5E830700265141 /* SearchTableViewCell.xib */; };
@@ -600,8 +600,6 @@
 		0416A2731F668EA800086682 /* YiJianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YiJianViewController.m; sourceTree = "<group>"; };
 		0416A2751F6785B900086682 /* BangzhuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BangzhuViewController.h; sourceTree = "<group>"; };
 		0416A2761F6785B900086682 /* BangzhuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BangzhuViewController.m; sourceTree = "<group>"; };
-		042913501F6BCF98006EF291 /* appppppppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appppppppViewController.h; sourceTree = "<group>"; };
-		042913511F6BCF98006EF291 /* appppppppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = appppppppViewController.m; sourceTree = "<group>"; };
 		042FA7D01F4188C400F06E13 /* AddbgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddbgTableViewCell.h; sourceTree = "<group>"; };
 		042FA7D11F4188C400F06E13 /* AddbgTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddbgTableViewCell.m; sourceTree = "<group>"; };
 		042FA7D21F4188C400F06E13 /* AddbgTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddbgTableViewCell.xib; sourceTree = "<group>"; };
@@ -846,6 +844,8 @@
 		04956AB61F21A1A9005B4831 /* SjLyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SjLyModel.m; sourceTree = "<group>"; };
 		04956AB71F21A1A9005B4831 /* WgModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WgModel.h; sourceTree = "<group>"; };
 		04956AB81F21A1A9005B4831 /* WgModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WgModel.m; sourceTree = "<group>"; };
+		04A5CD851F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbbbbbbbbbbbbbbbbbViewController.h; sourceTree = "<group>"; };
+		04A5CD861F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbbbbbbbbbbbbbbbbbViewController.m; sourceTree = "<group>"; };
 		04BB1A491F5E829500265141 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		04BB1A4A1F5E829500265141 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		04BB1A4C1F5E830700265141 /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
@@ -2170,10 +2170,10 @@
 				452DF0C01F417D55002FBC6F /* 我的订单 */,
 				452DF0BD1F417D48002FBC6F /* DianShangViewController.h */,
 				452DF0BE1F417D48002FBC6F /* DianShangViewController.m */,
-				042913501F6BCF98006EF291 /* appppppppViewController.h */,
-				042913511F6BCF98006EF291 /* appppppppViewController.m */,
 				047C264B1F6BD91300E9F6BC /* sdfjhsjkbViewController.h */,
 				047C264C1F6BD91300E9F6BC /* sdfjhsjkbViewController.m */,
+				04A5CD851F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.h */,
+				04A5CD861F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.m */,
 			);
 			name = "电商模块";
 			sourceTree = "<group>";
@@ -4387,7 +4387,6 @@
 				452DF1761F418054002FBC6F /* DianShangTableViewCell.m in Sources */,
 				45896F391F46C331000D2608 /* GRXiaoXiViewController.m in Sources */,
 				4557BC251EFBECF900D77A6F /* ReMenTableViewCell.m in Sources */,
-				042913521F6BCF98006EF291 /* appppppppViewController.m in Sources */,
 				04956AC01F21A1A9005B4831 /* WgModel.m in Sources */,
 				45A6F2181EEE2B45001E5AAF /* AddressViewController.m in Sources */,
 				45FA857A1F0643490090CCB4 /* AgreementViewController.m in Sources */,
@@ -4653,6 +4652,7 @@
 				042FA7F51F4189B100F06E13 /* JiaJuViewController.m in Sources */,
 				45896FC01F4AAEC5000D2608 /* TgaNModel.m in Sources */,
 				45FA863D1F0C72C40090CCB4 /* BfHdTableViewCell.m in Sources */,
+				04A5CD871F6BDB3B00354007 /* bbbbbbbbbbbbbbbbbbViewController.m in Sources */,
 				45FA86991F0C74760090CCB4 /* ZuZhidaTableViewCell.m in Sources */,
 				0470B65D1F54149E00C6A31A /* ViewCollectionViewCell.m in Sources */,
 				04CB35231F4FBBD000939E13 /* DhXxModel.m in Sources */,

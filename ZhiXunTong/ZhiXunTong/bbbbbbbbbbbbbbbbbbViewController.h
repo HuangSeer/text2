@@ -1,5 +1,5 @@
 //
-//  appppppppViewController.h
+//  bbbbbbbbbbbbbbbbbbViewController.h
 //  ZhiXunTong
 //
 //  Created by mac  on 2017/9/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface appppppppViewController : UIViewController
+@interface bbbbbbbbbbbbbbbbbbViewController : UIViewController
 
 @end

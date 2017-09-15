@@ -1,18 +1,18 @@
 //
-//  appppppppViewController.m
+//  bbbbbbbbbbbbbbbbbbViewController.m
 //  ZhiXunTong
 //
 //  Created by mac  on 2017/9/15.
 //  Copyright © 2017年 airZX. All rights reserved.
 //
 
-#import "appppppppViewController.h"
+#import "bbbbbbbbbbbbbbbbbbViewController.h"
 
-@interface appppppppViewController ()
+@interface bbbbbbbbbbbbbbbbbbViewController ()
 
 @end
 
-@implementation appppppppViewController
+@implementation bbbbbbbbbbbbbbbbbbViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
